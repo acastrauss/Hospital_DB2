@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HospitalDBModelStoreContainer" CdmEntityContainer="HospitalDBEntities1">
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="HospitalDBModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="IDDep" ColumnName="IDDep" />
+          <ScalarProperty Name="IDH" ColumnName="IDH" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="DepartmentField" ColumnName="DepartmentField" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Doctors">
+      <EntityTypeMapping TypeName="HospitalDBModel.Doctor">
+        <MappingFragment StoreEntitySet="Doctor">
+          <ScalarProperty Name="DoctorLicense" ColumnName="DoctorLicense" />
+          <ScalarProperty Name="Specialty" ColumnName="Specialty" />
+          <ScalarProperty Name="IDP" ColumnName="IDP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HealthCareWorkers">
+      <EntityTypeMapping TypeName="HospitalDBModel.HealthCareWorker">
+        <MappingFragment StoreEntitySet="HealthCareWorker">
+          <ScalarProperty Name="DegreeOfEducation" ColumnName="DegreeOfEducation" />
+          <ScalarProperty Name="MedicalLicense" ColumnName="MedicalLicense" />
+          <ScalarProperty Name="IDP" ColumnName="IDP" />
+          <ScalarProperty Name="IDDep" ColumnName="IDDep" />
+          <ScalarProperty Name="IDH" ColumnName="IDH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hospitals">
+      <EntityTypeMapping TypeName="HospitalDBModel.Hospital">
+        <MappingFragment StoreEntitySet="Hospital">
+          <ScalarProperty Name="IDH" ColumnName="IDH" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="DateBuilt" ColumnName="DateBuilt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MedicalRecords">
+      <EntityTypeMapping TypeName="HospitalDBModel.MedicalRecord">
+        <MappingFragment StoreEntitySet="MedicalRecord">
+          <ScalarProperty Name="IDRecord" ColumnName="IDRecord" />
+          <ScalarProperty Name="IDP" ColumnName="IDP" />
+          <ScalarProperty Name="Diagnosis" ColumnName="Diagnosis" />
+          <ScalarProperty Name="Therapy" ColumnName="Therapy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Nurses">
+      <EntityTypeMapping TypeName="HospitalDBModel.Nurse">
+        <MappingFragment StoreEntitySet="Nurse">
+          <ScalarProperty Name="SeniorityLevel" ColumnName="SeniorityLevel" />
+          <ScalarProperty Name="IDP" ColumnName="IDP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Patients">
+      <EntityTypeMapping TypeName="HospitalDBModel.Patient">
+        <MappingFragment StoreEntitySet="Patient">
+          <ScalarProperty Name="InsurancePolicy" ColumnName="InsurancePolicy" />
+          <ScalarProperty Name="IDP" ColumnName="IDP" />
+          <ScalarProperty Name="IDRoom" ColumnName="IDRoom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="HospitalDBModel.Person">
+        <MappingFragment StoreEntitySet="Person">
+          <ScalarProperty Name="IDP" ColumnName="IDP" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rooms">
+      <EntityTypeMapping TypeName="HospitalDBModel.Room">
+        <MappingFragment StoreEntitySet="Room">
+          <ScalarProperty Name="IDRoom" ColumnName="IDRoom" />
+          <ScalarProperty Name="IDDep" ColumnName="IDDep" />
+          <ScalarProperty Name="Floor" ColumnName="Floor" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+          <ScalarProperty Name="IDH" ColumnName="IDH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TakenCareBies">
+      <EntityTypeMapping TypeName="HospitalDBModel.TakenCareBy">
+        <MappingFragment StoreEntitySet="TakenCareBy">
+          <ScalarProperty Name="IDPDoctor" ColumnName="IDPDoctor" />
+          <ScalarProperty Name="IDPPatient" ColumnName="IDPPatient" />
+          <ScalarProperty Name="IDTCB" ColumnName="IDTCB" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="FillsRecord" TypeName="HospitalDBModel.FillsRecord" StoreEntitySet="FillsRecord">
+      <EndProperty Name="Doctor">
+        <ScalarProperty Name="IDP" ColumnName="IDPDoctor" />
+      </EndProperty>
+      <EndProperty Name="MedicalRecord">
+        <ScalarProperty Name="IDRecord" ColumnName="IDRecord" />
+        <ScalarProperty Name="IDP" ColumnName="IDPMedicalRecord" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="HelpingWithCare" TypeName="HospitalDBModel.HelpingWithCare" StoreEntitySet="HelpingWithCare">
+      <EndProperty Name="TakenCareBy">
+        <ScalarProperty Name="IDTCB" ColumnName="IDTCB" />
+      </EndProperty>
+      <EndProperty Name="Nurse">
+        <ScalarProperty Name="IDP" ColumnName="IDPNurse" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionName="HospitalDBModel.Store.udfDoctorPatients" FunctionImportName="udfDoctorPatients">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HospitalDBModel.udfDoctorPatients_Result">
+          <ScalarProperty Name="InsurancePolicy" ColumnName="InsurancePolicy" />
+          <ScalarProperty Name="IDP" ColumnName="IDP" />
+          <ScalarProperty Name="IDRoom" ColumnName="IDRoom" />
+          <ScalarProperty Name="IDPDoctor" ColumnName="IDPDoctor" />
+          <ScalarProperty Name="IDPPatient" ColumnName="IDPPatient" />
+          <ScalarProperty Name="IDTCB" ColumnName="IDTCB" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionName="HospitalDBModel.Store.udfPatientDoctors" FunctionImportName="udfPatientDoctors">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HospitalDBModel.udfPatientDoctors_Result">
+          <ScalarProperty Name="DoctorLicense" ColumnName="DoctorLicense" />
+          <ScalarProperty Name="Specialty" ColumnName="Specialty" />
+          <ScalarProperty Name="IDP" ColumnName="IDP" />
+          <ScalarProperty Name="IDPDoctor" ColumnName="IDPDoctor" />
+          <ScalarProperty Name="IDPPatient" ColumnName="IDPPatient" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionName="HospitalDBModel.Store.udfPatientNurses" FunctionImportName="udfPatientNurses">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HospitalDBModel.udfPatientNurses_Result">
+          <ScalarProperty Name="SeniorityLevel" ColumnName="SeniorityLevel" />
+          <ScalarProperty Name="IDP" ColumnName="IDP" />
+          <ScalarProperty Name="IDPNurse" ColumnName="IDPNurse" />
+          <ScalarProperty Name="IDPDoctor" ColumnName="IDPDoctor" />
+          <ScalarProperty Name="IDPPatient" ColumnName="IDPPatient" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspCreateDoctor" FunctionName="HospitalDBModel.Store.uspCreateDoctor" />
+    <FunctionImportMapping FunctionImportName="uspCreateHealthCareWorker" FunctionName="HospitalDBModel.Store.uspCreateHealthCareWorker" />
+    <FunctionImportMapping FunctionImportName="uspCreateNurse" FunctionName="HospitalDBModel.Store.uspCreateNurse" />
+    <FunctionImportMapping FunctionImportName="uspCreatePatient" FunctionName="HospitalDBModel.Store.uspCreatePatient" />
+    <FunctionImportMapping FunctionImportName="uspCreatePerson" FunctionName="HospitalDBModel.Store.uspCreatePerson" />
+    <FunctionImportMapping FunctionImportName="uspDoctorPatients" FunctionName="HospitalDBModel.Store.uspDoctorPatients">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HospitalDBModel.uspDoctorPatients_Result">
+          <ScalarProperty Name="InsurancePolicy" ColumnName="InsurancePolicy" />
+          <ScalarProperty Name="IDP" ColumnName="IDP" />
+          <ScalarProperty Name="IDRoom" ColumnName="IDRoom" />
+          <ScalarProperty Name="IDPDoctor" ColumnName="IDPDoctor" />
+          <ScalarProperty Name="IDPPatient" ColumnName="IDPPatient" />
+          <ScalarProperty Name="IDTCB" ColumnName="IDTCB" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspPatientDoctors" FunctionName="HospitalDBModel.Store.uspPatientDoctors">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HospitalDBModel.uspPatientDoctors_Result">
+          <ScalarProperty Name="DoctorLicense" ColumnName="DoctorLicense" />
+          <ScalarProperty Name="Specialty" ColumnName="Specialty" />
+          <ScalarProperty Name="IDP" ColumnName="IDP" />
+          <ScalarProperty Name="IDPDoctor" ColumnName="IDPDoctor" />
+          <ScalarProperty Name="IDPPatient" ColumnName="IDPPatient" />
+          <ScalarProperty Name="IDTCB" ColumnName="IDTCB" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspPatientNurse" FunctionName="HospitalDBModel.Store.uspPatientNurse">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HospitalDBModel.uspPatientNurse_Result">
+          <ScalarProperty Name="SeniorityLevel" ColumnName="SeniorityLevel" />
+          <ScalarProperty Name="IDP" ColumnName="IDP" />
+          <ScalarProperty Name="IDPNurse" ColumnName="IDPNurse" />
+          <ScalarProperty Name="IDTCB" ColumnName="IDTCB" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

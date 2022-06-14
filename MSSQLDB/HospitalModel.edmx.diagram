@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="189f68502192483f929aab1629b75a50" Name="Diagram1">
+        <EntityTypeShape EntityType="HospitalDBModel.Department" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.Doctor" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.HealthCareWorker" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.Hospital" Width="1.5" PointX="1.5" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.MedicalRecord" Width="1.5" PointX="8.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.Nurse" Width="1.5" PointX="10.5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.Patient" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.Person" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.Room" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.TakenCareBy" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="HospitalDBModel.FK_HealthCareWorker_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_Hospital_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_Room_Department1" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_Doctor_HealthCareWorker" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_TakenCareBy_Doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_HealthCareWorker_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_Nurse_HealthCareWorker" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_MedicalRecord_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_Patient_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_Patient_Room" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_TakenCareBy_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FillsRecord" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.HelpingWithCare" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

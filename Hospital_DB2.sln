@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital_DB2", "Hospital_DB2\Hospital_DB2.csproj", "{5B0A9172-497C-4B75-A33D-59326B6A0713}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{C3443421-DD83-4740-837D-62418B1B7D2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSSQLDB", "MSSQLDB\MSSQLDB.csproj", "{76F52D61-3601-434D-8BB8-2E715A9F65DC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B0A9172-497C-4B75-A33D-59326B6A0713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B0A9172-497C-4B75-A33D-59326B6A0713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B0A9172-497C-4B75-A33D-59326B6A0713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B0A9172-497C-4B75-A33D-59326B6A0713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3443421-DD83-4740-837D-62418B1B7D2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3443421-DD83-4740-837D-62418B1B7D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3443421-DD83-4740-837D-62418B1B7D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3443421-DD83-4740-837D-62418B1B7D2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76F52D61-3601-434D-8BB8-2E715A9F65DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76F52D61-3601-434D-8BB8-2E715A9F65DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76F52D61-3601-434D-8BB8-2E715A9F65DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76F52D61-3601-434D-8BB8-2E715A9F65DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {09784944-7FFE-46C0-A7AB-71767BA5ED37}
+	EndGlobalSection
+EndGlobal

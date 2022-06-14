@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HospitalDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="IDDep" />
+      <PropertyRef Name="IDH" />
+    </Key>
+    <Property Name="IDDep" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDH" Type="int" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="DepartmentField" Type="nchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="IDP" />
+    </Key>
+    <Property Name="DoctorLicense" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="Specialty" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="IDP" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FillsRecord">
+    <Key>
+      <PropertyRef Name="IDPDoctor" />
+      <PropertyRef Name="IDPMedicalRecord" />
+      <PropertyRef Name="IDRecord" />
+    </Key>
+    <Property Name="IDPDoctor" Type="int" Nullable="false" />
+    <Property Name="IDPMedicalRecord" Type="int" Nullable="false" />
+    <Property Name="IDRecord" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HealthCareWorker">
+    <Key>
+      <PropertyRef Name="IDP" />
+    </Key>
+    <Property Name="DegreeOfEducation" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="MedicalLicense" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="IDP" Type="int" Nullable="false" />
+    <Property Name="IDDep" Type="int" Nullable="false" />
+    <Property Name="IDH" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HelpingWithCare">
+    <Key>
+      <PropertyRef Name="IDPNurse" />
+      <PropertyRef Name="IDTCB" />
+    </Key>
+    <Property Name="IDPNurse" Type="int" Nullable="false" />
+    <Property Name="IDTCB" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Hospital">
+    <Key>
+      <PropertyRef Name="IDH" />
+    </Key>
+    <Property Name="IDH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="Address" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateBuilt" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MedicalRecord">
+    <Key>
+      <PropertyRef Name="IDRecord" />
+      <PropertyRef Name="IDP" />
+    </Key>
+    <Property Name="IDRecord" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDP" Type="int" Nullable="false" />
+    <Property Name="Diagnosis" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="Therapy" Type="nchar" MaxLength="40" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Nurse">
+    <Key>
+      <PropertyRef Name="IDP" />
+    </Key>
+    <Property Name="SeniorityLevel" Type="int" Nullable="false" />
+    <Property Name="IDP" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="IDP" />
+    </Key>
+    <Property Name="InsurancePolicy" Type="nchar" MaxLength="40" Nullable="false" />
+    <Property Name="IDP" Type="int" Nullable="false" />
+    <Property Name="IDRoom" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="IDP" />
+    </Key>
+    <Property Name="IDP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="BirthDate" Type="date" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="IDRoom" />
+    </Key>
+    <Property Name="IDRoom" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDDep" Type="int" Nullable="false" />
+    <Property Name="Floor" Type="int" Nullable="false" />
+    <Property Name="Capacity" Type="int" Nullable="false" />
+    <Property Name="IDH" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TakenCareBy">
+    <Key>
+      <PropertyRef Name="IDTCB" />
+    </Key>
+    <Property Name="IDPDoctor" Type="int" Nullable="false" />
+    <Property Name="IDPPatient" Type="int" Nullable="false" />
+    <Property Name="IDTCB" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Doctor_HealthCareWorker">
+    <End Role="HealthCareWorker" Type="Self.HealthCareWorker" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="HealthCareWorker">
+        <PropertyRef Name="IDP" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="IDP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FillsRecord_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="FillsRecord" Type="Self.FillsRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IDP" />
+      </Principal>
+      <Dependent Role="FillsRecord">
+        <PropertyRef Name="IDPDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FillsRecord_MedicalRecord">
+    <End Role="MedicalRecord" Type="Self.MedicalRecord" Multiplicity="1" />
+    <End Role="FillsRecord" Type="Self.FillsRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MedicalRecord">
+        <PropertyRef Name="IDRecord" />
+        <PropertyRef Name="IDP" />
+      </Principal>
+      <Dependent Role="FillsRecord">
+        <PropertyRef Name="IDRecord" />
+        <PropertyRef Name="IDPMedicalRecord" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HealthCareWorker_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="1" />
+    <End Role="HealthCareWorker" Type="Self.HealthCareWorker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="IDDep" />
+        <PropertyRef Name="IDH" />
+      </Principal>
+      <Dependent Role="HealthCareWorker">
+        <PropertyRef Name="IDDep" />
+        <PropertyRef Name="IDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HealthCareWorker_Person">
+    <End Role="Person" Type="Self.Person" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="HealthCareWorker" Type="Self.HealthCareWorker" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="IDP" />
+      </Principal>
+      <Dependent Role="HealthCareWorker">
+        <PropertyRef Name="IDP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HelpingWithCare_HelpingWithCare">
+    <End Role="TakenCareBy" Type="Self.TakenCareBy" Multiplicity="1" />
+    <End Role="HelpingWithCare" Type="Self.HelpingWithCare" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TakenCareBy">
+        <PropertyRef Name="IDTCB" />
+      </Principal>
+      <Dependent Role="HelpingWithCare">
+        <PropertyRef Name="IDTCB" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HelpingWithCare_Nurse">
+    <End Role="Nurse" Type="Self.Nurse" Multiplicity="1" />
+    <End Role="HelpingWithCare" Type="Self.HelpingWithCare" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Nurse">
+        <PropertyRef Name="IDP" />
+      </Principal>
+      <Dependent Role="HelpingWithCare">
+        <PropertyRef Name="IDPNurse" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hospital_Department">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Department" Type="Self.Department" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="IDH" />
+      </Principal>
+      <Dependent Role="Department">
+        <PropertyRef Name="IDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MedicalRecord_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MedicalRecord" Type="Self.MedicalRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="IDP" />
+      </Principal>
+      <Dependent Role="MedicalRecord">
+        <PropertyRef Name="IDP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Nurse_HealthCareWorker">
+    <End Role="HealthCareWorker" Type="Self.HealthCareWorker" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Nurse" Type="Self.Nurse" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="HealthCareWorker">
+        <PropertyRef Name="IDP" />
+      </Principal>
+      <Dependent Role="Nurse">
+        <PropertyRef Name="IDP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Patient_Person">
+    <End Role="Person" Type="Self.Person" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="IDP" />
+      </Principal>
+      <Dependent Role="Patient">
+        <PropertyRef Name="IDP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Patient_Room">
+    <End Role="Room" Type="Self.Room" Multiplicity="1" />
+    <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="IDRoom" />
+      </Principal>
+      <Dependent Role="Patient">
+        <PropertyRef Name="IDRoom" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Room_Department1">
+    <End Role="Department" Type="Self.Department" Multiplicity="1" />
+    <End Role="Room" Type="Self.Room" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="IDDep" />
+        <PropertyRef Name="IDH" />
+      </Principal>
+      <Dependent Role="Room">
+        <PropertyRef Name="IDDep" />
+        <PropertyRef Name="IDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TakenCareBy_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="TakenCareBy" Type="Self.TakenCareBy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IDP" />
+      </Principal>
+      <Dependent Role="TakenCareBy">
+        <PropertyRef Name="IDPDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TakenCareBy_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="TakenCareBy" Type="Self.TakenCareBy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="IDP" />
+      </Principal>
+      <Dependent Role="TakenCareBy">
+        <PropertyRef Name="IDPPatient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="udfDoctorPatients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IDDoctor" Type="int" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="InsurancePolicy" Type="nchar" MaxLength="40" Nullable="false" />
+          <Property Name="IDP" Type="int" Nullable="false" />
+          <Property Name="IDRoom" Type="int" Nullable="false" />
+          <Property Name="IDPDoctor" Type="int" Nullable="false" />
+          <Property Name="IDPPatient" Type="int" Nullable="false" />
+          <Property Name="IDTCB" Type="int" Nullable="false" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="udfPatientDoctors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IDPatient" Type="int" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="DoctorLicense" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="Specialty" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="IDP" Type="int" Nullable="false" />
+          <Property Name="IDPDoctor" Type="int" Nullable="false" />
+          <Property Name="IDPPatient" Type="int" Nullable="false" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="udfPatientNurses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IDPatient" Type="int" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="SeniorityLevel" Type="int" Nullable="false" />
+          <Property Name="IDP" Type="int" Nullable="false" />
+          <Property Name="IDPNurse" Type="int" Nullable="false" />
+          <Property Name="IDPDoctor" Type="int" Nullable="false" />
+          <Property Name="IDPPatient" Type="int" Nullable="false" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="uspCreateDoctor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NameD" Type="nchar" Mode="In" />
+    <Parameter Name="BirthDateD" Type="date" Mode="In" />
+    <Parameter Name="PhoneNumberD" Type="nchar" Mode="In" />
+    <Parameter Name="MedicalLicenseD" Type="nchar" Mode="In" />
+    <Parameter Name="DegreeOfEducationD" Type="nchar" Mode="In" />
+    <Parameter Name="DoctorLicense" Type="nchar" Mode="In" />
+    <Parameter Name="Specialty" Type="nchar" Mode="In" />
+    <Parameter Name="IDDepartmentD" Type="int" Mode="In" />
+    <Parameter Name="IDHospitalD" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspCreateHealthCareWorker" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NameHCW" Type="nchar" Mode="In" />
+    <Parameter Name="BirthDateHCW" Type="date" Mode="In" />
+    <Parameter Name="PhoneNumberHCW" Type="nchar" Mode="In" />
+    <Parameter Name="MedicalLicense" Type="nchar" Mode="In" />
+    <Parameter Name="DegreeOfEducation" Type="nchar" Mode="In" />
+    <Parameter Name="IDDepartment" Type="int" Mode="In" />
+    <Parameter Name="IDHospital" Type="int" Mode="In" />
+    <Parameter Name="IDCreatedHCW" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="uspCreateNurse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NameN" Type="nchar" Mode="In" />
+    <Parameter Name="BirthDateN" Type="date" Mode="In" />
+    <Parameter Name="PhoneNumberN" Type="nchar" Mode="In" />
+    <Parameter Name="MedicalLicenseN" Type="nchar" Mode="In" />
+    <Parameter Name="DegreeOfEducationN" Type="nchar" Mode="In" />
+    <Parameter Name="SeniorityLevel" Type="int" Mode="In" />
+    <Parameter Name="IDDepartmentN" Type="int" Mode="In" />
+    <Parameter Name="IDHospitalN" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspCreatePatient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NameP" Type="nchar" Mode="In" />
+    <Parameter Name="BirthDateP" Type="date" Mode="In" />
+    <Parameter Name="PhoneNumberP" Type="nchar" Mode="In" />
+    <Parameter Name="InsurancePolicy" Type="nchar" Mode="In" />
+    <Parameter Name="IDRoom" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspCreatePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Name" Type="nchar" Mode="In" />
+    <Parameter Name="BirthDate" Type="date" Mode="In" />
+    <Parameter Name="PhoneNumber" Type="nchar" Mode="In" />
+    <Parameter Name="IDCreated" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="uspDoctorPatients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IDDoctor" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspPatientDoctors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IDPatient" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspPatientNurse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IDPatient" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="HospitalDBModelStoreContainer">
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FillsRecord" EntityType="Self.FillsRecord" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HealthCareWorker" EntityType="Self.HealthCareWorker" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HelpingWithCare" EntityType="Self.HelpingWithCare" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Hospital" EntityType="Self.Hospital" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MedicalRecord" EntityType="Self.MedicalRecord" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Nurse" EntityType="Self.Nurse" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TakenCareBy" EntityType="Self.TakenCareBy" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Doctor_HealthCareWorker" Association="Self.FK_Doctor_HealthCareWorker">
+      <End Role="HealthCareWorker" EntitySet="HealthCareWorker" />
+      <End Role="Doctor" EntitySet="Doctor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FillsRecord_Doctor" Association="Self.FK_FillsRecord_Doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="FillsRecord" EntitySet="FillsRecord" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FillsRecord_MedicalRecord" Association="Self.FK_FillsRecord_MedicalRecord">
+      <End Role="MedicalRecord" EntitySet="MedicalRecord" />
+      <End Role="FillsRecord" EntitySet="FillsRecord" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HealthCareWorker_Department" Association="Self.FK_HealthCareWorker_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="HealthCareWorker" EntitySet="HealthCareWorker" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HealthCareWorker_Person" Association="Self.FK_HealthCareWorker_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="HealthCareWorker" EntitySet="HealthCareWorker" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HelpingWithCare_HelpingWithCare" Association="Self.FK_HelpingWithCare_HelpingWithCare">
+      <End Role="TakenCareBy" EntitySet="TakenCareBy" />
+      <End Role="HelpingWithCare" EntitySet="HelpingWithCare" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HelpingWithCare_Nurse" Association="Self.FK_HelpingWithCare_Nurse">
+      <End Role="Nurse" EntitySet="Nurse" />
+      <End Role="HelpingWithCare" EntitySet="HelpingWithCare" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hospital_Department" Association="Self.FK_Hospital_Department">
+      <End Role="Hospital" EntitySet="Hospital" />
+      <End Role="Department" EntitySet="Department" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MedicalRecord_Patient" Association="Self.FK_MedicalRecord_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="MedicalRecord" EntitySet="MedicalRecord" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Nurse_HealthCareWorker" Association="Self.FK_Nurse_HealthCareWorker">
+      <End Role="HealthCareWorker" EntitySet="HealthCareWorker" />
+      <End Role="Nurse" EntitySet="Nurse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Patient_Person" Association="Self.FK_Patient_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Patient" EntitySet="Patient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Patient_Room" Association="Self.FK_Patient_Room">
+      <End Role="Room" EntitySet="Room" />
+      <End Role="Patient" EntitySet="Patient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Room_Department1" Association="Self.FK_Room_Department1">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Room" EntitySet="Room" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TakenCareBy_Doctor" Association="Self.FK_TakenCareBy_Doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="TakenCareBy" EntitySet="TakenCareBy" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TakenCareBy_Patient" Association="Self.FK_TakenCareBy_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="TakenCareBy" EntitySet="TakenCareBy" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

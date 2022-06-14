@@ -1,0 +1,15 @@
+D:\bp2_projekat\proj\Hospital_DB2\MSSQLDB\bin\Debug\MSSQLDB.dll.config
+D:\bp2_projekat\proj\Hospital_DB2\MSSQLDB\bin\Debug\MSSQLDB.dll
+D:\bp2_projekat\proj\Hospital_DB2\MSSQLDB\bin\Debug\MSSQLDB.pdb
+D:\bp2_projekat\proj\Hospital_DB2\MSSQLDB\bin\Debug\EntityFramework.dll
+D:\bp2_projekat\proj\Hospital_DB2\MSSQLDB\bin\Debug\EntityFramework.SqlServer.dll
+D:\bp2_projekat\proj\Hospital_DB2\MSSQLDB\bin\Debug\Models.dll
+D:\bp2_projekat\proj\Hospital_DB2\MSSQLDB\bin\Debug\Models.pdb
+D:\bp2_projekat\proj\Hospital_DB2\MSSQLDB\bin\Debug\Models.dll.config
+D:\bp2_projekat\proj\Hospital_DB2\MSSQLDB\bin\Debug\EntityFramework.xml
+D:\bp2_projekat\proj\Hospital_DB2\MSSQLDB\bin\Debug\EntityFramework.SqlServer.xml
+D:\bp2_projekat\proj\Hospital_DB2\MSSQLDB\obj\Debug\MSSQLDB.csprojAssemblyReference.cache
+D:\bp2_projekat\proj\Hospital_DB2\MSSQLDB\obj\Debug\MSSQLDB.csproj.CoreCompileInputs.cache
+D:\bp2_projekat\proj\Hospital_DB2\MSSQLDB\obj\Debug\MSSQLDB.csproj.CopyComplete
+D:\bp2_projekat\proj\Hospital_DB2\MSSQLDB\obj\Debug\MSSQLDB.dll
+D:\bp2_projekat\proj\Hospital_DB2\MSSQLDB\obj\Debug\MSSQLDB.pdb

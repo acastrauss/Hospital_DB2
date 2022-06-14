@@ -1,0 +1,7 @@
+D:\bp2_projekat\proj\Hospital_DB2\Models\bin\Debug\Models.dll.config
+D:\bp2_projekat\proj\Hospital_DB2\Models\bin\Debug\Models.dll
+D:\bp2_projekat\proj\Hospital_DB2\Models\bin\Debug\Models.pdb
+D:\bp2_projekat\proj\Hospital_DB2\Models\obj\Debug\Models.csprojAssemblyReference.cache
+D:\bp2_projekat\proj\Hospital_DB2\Models\obj\Debug\Models.csproj.CoreCompileInputs.cache
+D:\bp2_projekat\proj\Hospital_DB2\Models\obj\Debug\Models.dll
+D:\bp2_projekat\proj\Hospital_DB2\Models\obj\Debug\Models.pdb
