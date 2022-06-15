@@ -17,7 +17,7 @@ namespace MSSQLDB.CRUD
             int ret = -1;
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     Models.AppModels.Department department = model as Models.AppModels.Department;
 
@@ -51,7 +51,7 @@ namespace MSSQLDB.CRUD
 
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     db.Departments.ToList().ForEach(x => retVal.Add(_Converter.ConvertDepartment(x)));
                 }
@@ -70,7 +70,7 @@ namespace MSSQLDB.CRUD
 
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     var hdb = db.Departments.Where(x => x.IDDep == id).FirstOrDefault();
                     retVal = _Converter.ConvertDepartment(hdb);
@@ -94,7 +94,7 @@ namespace MSSQLDB.CRUD
             int retVal = 0;
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     retVal = db.Nurses.ToList().Count(x => x.HealthCareWorker.IDDep == depId);
                 }
@@ -112,7 +112,7 @@ namespace MSSQLDB.CRUD
             int retVal = 0;
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     retVal = db.Doctors.ToList().Count(x => x.HealthCareWorker.IDDep == depId);
                 }

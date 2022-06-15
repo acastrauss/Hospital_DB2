@@ -400,6 +400,9 @@
         <Function Name="uspDoctorPatients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IDDoctor" Type="int" Mode="In" />
         </Function>
+        <Function Name="uspPatient_DoctorMedicalRecords" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDPatient" Type="int" Mode="In" />
+        </Function>
         <Function Name="uspPatientDoctors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IDPatient" Type="int" Mode="In" />
         </Function>
@@ -778,7 +781,7 @@
           <End Role="TakenCareBy" Type="Self.TakenCareBy" Multiplicity="*" />
           <End Role="Nurse" Type="Self.Nurse" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="HospitalDBEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="HospitalDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Departments" EntityType="Self.Department" />
           <EntitySet Name="Doctors" EntityType="Self.Doctor" />
           <EntitySet Name="HealthCareWorkers" EntityType="Self.HealthCareWorker" />
@@ -897,6 +900,9 @@
           <FunctionImport Name="uspDoctorPatients" ReturnType="Collection(HospitalDBModel.uspDoctorPatients_Result)">
             <Parameter Name="IDDoctor" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="uspPatient_DoctorMedicalRecords" ReturnType="Collection(HospitalDBModel.uspPatient_DoctorMedicalRecords_Result)">
+            <Parameter Name="IDPatient" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="uspPatientDoctors" ReturnType="Collection(HospitalDBModel.uspPatientDoctors_Result)">
             <Parameter Name="IDPatient" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -911,6 +917,13 @@
           <Property Type="Int32" Name="IDPDoctor" Nullable="false" />
           <Property Type="Int32" Name="IDPPatient" Nullable="false" />
           <Property Type="Int32" Name="IDTCB" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="uspPatient_DoctorMedicalRecords_Result">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="DoctorLicense" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Specialty" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Diagnosis" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Therapy" Nullable="false" MaxLength="40" />
         </ComplexType>
         <ComplexType Name="uspPatientDoctors_Result">
           <Property Type="String" Name="DoctorLicense" Nullable="false" MaxLength="30" />
@@ -931,7 +944,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="HospitalDBModelStoreContainer" CdmEntityContainer="HospitalDBEntities1">
+        <EntityContainerMapping StorageEntityContainer="HospitalDBModelStoreContainer" CdmEntityContainer="HospitalDBEntities">
           <EntitySetMapping Name="Departments">
             <EntityTypeMapping TypeName="HospitalDBModel.Department">
               <MappingFragment StoreEntitySet="Department">
@@ -1094,6 +1107,17 @@
                 <ScalarProperty Name="IDPDoctor" ColumnName="IDPDoctor" />
                 <ScalarProperty Name="IDPPatient" ColumnName="IDPPatient" />
                 <ScalarProperty Name="IDTCB" ColumnName="IDTCB" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspPatient_DoctorMedicalRecords" FunctionName="HospitalDBModel.Store.uspPatient_DoctorMedicalRecords">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HospitalDBModel.uspPatient_DoctorMedicalRecords_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DoctorLicense" ColumnName="DoctorLicense" />
+                <ScalarProperty Name="Specialty" ColumnName="Specialty" />
+                <ScalarProperty Name="Diagnosis" ColumnName="Diagnosis" />
+                <ScalarProperty Name="Therapy" ColumnName="Therapy" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

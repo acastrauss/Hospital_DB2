@@ -101,6 +101,18 @@ namespace Hospital_DB2.UIComponents.Tables
             };
 
             sp.Children.Add(t2);
+            
+            TextBox t3 = new TextBox()
+            {
+                IsReadOnly = true,
+                MaxWidth = 200,
+                MaxHeight = 50,
+                Width = 200,
+                Height = 50,
+                Text = "Records and doctors:"
+            };
+
+            sp.Children.Add(t3);
 
             this.Children.Add(sp);
 
@@ -126,8 +138,11 @@ namespace Hospital_DB2.UIComponents.Tables
             var dep = ((Models.AppModels.Department)dbCrud.ReadModel(room.IDDep));
             dbCrud = tempCrud;
 
-            var db = new MSSQLDB.HospitalDBEntities1();
-            var doctors = db.uspPatientDoctors(p.IDP);
+            tempCrud = dbCrud;
+            dbCrud = new MSSQLDB.CRUD.CRUDPatient();
+            var records = ((MSSQLDB.CRUD.CRUDPatient)dbCrud).GetPatientRecords(p.IDP);
+            dbCrud = tempCrud;
+
             // find doctors and medical records
 
             TextBox t01 = new TextBox()
@@ -202,6 +217,27 @@ namespace Hospital_DB2.UIComponents.Tables
             };
 
             sp.Children.Add(t3);
+
+            String recordsString = String.Empty;
+
+            foreach (var r in records)
+            {
+                recordsString += String.Format("Diagnosed:{0}\nPrescribed:{1}\nDoctor:{2}\n\n",
+                    r.Diagnosis, r.Therapy, r.DoctorName, r.DoctorLicense, r.Specialty
+                );
+            }
+
+            TextBox t4 = new TextBox()
+            {
+                IsReadOnly = true,
+                MaxWidth = 500,
+                MaxHeight = 300,
+                Text = recordsString,
+                
+            };
+
+            sp.Children.Add(t4);
+
 
             this.Children.Add(sp);
 

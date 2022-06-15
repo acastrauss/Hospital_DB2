@@ -11,7 +11,7 @@ namespace MSSQLDB
 {
     using System;
     
-    public partial class udfPatientNurses_Result
+    public partial class udfPatientNurses_Result : Models.DTOConversion.IDBModel
     {
         public int SeniorityLevel { get; set; }
         public int IDP { get; set; }

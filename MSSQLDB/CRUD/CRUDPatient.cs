@@ -12,12 +12,31 @@ namespace MSSQLDB.CRUD
     {
         public IConvertModels _Converter { get; set; } = new MSSQLDB.MSSQLDTOConversion.MSSQLDTOConversion();
 
+        public ICollection<Models.AppModels.FunctionsModels.uspPatient_DoctorRecords> GetPatientRecords(int patientId)
+        {
+            List<Models.AppModels.FunctionsModels.uspPatient_DoctorRecords> retVal = new List<Models.AppModels.FunctionsModels.uspPatient_DoctorRecords>();
+
+            try
+            {
+                using (var db = new HospitalDBEntities())
+                {
+                    retVal = db.uspPatient_DoctorMedicalRecords(patientId).Select(x => _Converter.uspPatientDoctorRecords(x)).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return retVal;
+        }
+
         public int CreateModel(ISystemModel model)
         {
             int ret = -1;
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     Models.AppModels.Patient patient = model as Models.AppModels.Patient;
                     db.uspCreatePatient(
@@ -67,7 +86,7 @@ namespace MSSQLDB.CRUD
 
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     db.Patients.ToList().ForEach(x => retVal.Add(_Converter.ConvertPatient(x)));
                 }

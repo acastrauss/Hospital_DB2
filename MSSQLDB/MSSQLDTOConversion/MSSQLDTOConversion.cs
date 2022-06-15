@@ -43,7 +43,8 @@ namespace MSSQLDB.MSSQLDTOConversion
             return new Models.AppModels.Doctor(
                     dbDoc.HealthCareWorker.Person.Name.Trim(),
                     dbDoc.HealthCareWorker.Person.BirthDate,
-                    dbDoc.HealthCareWorker.Person.PhoneNumber.Trim(),                    dbDoc.HealthCareWorker.MedicalLicense.Trim(),
+                    dbDoc.HealthCareWorker.Person.PhoneNumber.Trim(),
+                    dbDoc.HealthCareWorker.MedicalLicense.Trim(),
                     dbDoc.HealthCareWorker.DegreeOfEducation.Trim(),
                     dbDoc.DoctorLicense.Trim(),
                     dbDoc.Specialty.Trim(),
@@ -215,6 +216,19 @@ namespace MSSQLDB.MSSQLDTOConversion
                 IDP = uspRes.IDP,
                 IDPNurse = uspRes.IDPNurse,
                 IDTCB = uspRes.IDTCB
+            };
+        }
+
+        public uspPatient_DoctorRecords uspPatientDoctorRecords(IDBModel dBModel)
+        {
+            MSSQLDB.uspPatient_DoctorMedicalRecords_Result uspRes = dBModel as MSSQLDB.uspPatient_DoctorMedicalRecords_Result;
+            return new uspPatient_DoctorRecords()
+            {
+                Diagnosis = uspRes.Diagnosis.Trim(),
+                DoctorLicense = uspRes.DoctorLicense.Trim(),
+                DoctorName = uspRes.Name.Trim(),
+                Specialty = uspRes.Specialty.Trim(),
+                Therapy = uspRes.Therapy.Trim()
             };
         }
     }

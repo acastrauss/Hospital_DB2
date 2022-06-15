@@ -17,7 +17,7 @@ namespace MSSQLDB.CRUD
             int ret = -1;
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     Models.AppModels.MedicalRecord medicalRecord = model as Models.AppModels.MedicalRecord;
 

@@ -17,7 +17,7 @@ namespace MSSQLDB.CRUD
             int ret = -1;
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     Models.AppModels.Room room = model as Models.AppModels.Room;
 
@@ -51,7 +51,7 @@ namespace MSSQLDB.CRUD
 
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     db.Rooms.ToList().ForEach(x => retVal.Add(_Converter.ConvertRoom(x)));
                 }
@@ -70,7 +70,7 @@ namespace MSSQLDB.CRUD
 
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     var hdb = db.Rooms.Where(x => x.IDRoom == id).FirstOrDefault();
                     retVal = _Converter.ConvertRoom(hdb);

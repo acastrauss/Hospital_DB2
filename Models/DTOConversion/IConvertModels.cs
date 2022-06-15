@@ -24,6 +24,7 @@ namespace Models.DTOConversion
         AppModels.FunctionsModels.uspDoctorPatientsResult ConvertUSPDPResult(DTOConversion.IDBModel dbModel);
         AppModels.FunctionsModels.uspPatientDoctorsResult ConvertUSPPDResult(DTOConversion.IDBModel dbModel);
         AppModels.FunctionsModels.uspPatientNurseResult ConvertUSPPNResult(DTOConversion.IDBModel dbModel);
+        AppModels.FunctionsModels.uspPatient_DoctorRecords uspPatientDoctorRecords(IDBModel dBModel);
 
         #endregion
     }

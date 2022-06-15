@@ -17,7 +17,7 @@ namespace MSSQLDB.CRUD
             int ret = -1;
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     Models.AppModels.Hospital hospital = model as Models.AppModels.Hospital;
 
@@ -44,7 +44,7 @@ namespace MSSQLDB.CRUD
             int ret = -1;
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     var h = db.Hospitals.Where(x => x.IDH == id).FirstOrDefault();
                     db.Hospitals.Remove(h);
@@ -64,7 +64,7 @@ namespace MSSQLDB.CRUD
 
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     db.Hospitals.ToList().ForEach(x => retVal.Add(_Converter.ConvertHospital(x)));
                 }
@@ -83,7 +83,7 @@ namespace MSSQLDB.CRUD
 
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     var hdb = db.Hospitals.Where(x => x.IDH == id).FirstOrDefault();
                     retVal = _Converter.ConvertHospital(hdb);
@@ -97,6 +97,11 @@ namespace MSSQLDB.CRUD
             return retVal;
         }
 
+        public ICollection<ISystemModel> ReadMultipleModels(ICollection<int> ids)
+        {
+            throw new NotImplementedException();
+        }
+
         public int UpdateModel(ISystemModel model)
         {
             int ret = -1;
@@ -104,7 +109,7 @@ namespace MSSQLDB.CRUD
             {
                 Models.AppModels.Hospital happ = model as Models.AppModels.Hospital;
 
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     var hdb = db.Hospitals.Where(x => x.IDH == happ.IDH).FirstOrDefault();
 

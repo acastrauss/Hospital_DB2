@@ -58,79 +58,82 @@
     <Compile Include="CRUD\CRUDPatient.cs" />
     <Compile Include="CRUD\CRUDRoom.cs" />
     <Compile Include="Department.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Doctor.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="HealthCareWorker.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Hospital.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="HospitalModel.Context.cs">
+    <Compile Include="HospitalDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HospitalModel.Context.tt</DependentUpon>
+      <DependentUpon>HospitalDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="HospitalModel.cs">
+    <Compile Include="HospitalDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="HospitalModel.Designer.cs">
+    <Compile Include="HospitalDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HospitalModel.edmx</DependentUpon>
+      <DependentUpon>HospitalDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="MedicalRecord.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="MSSQLDTOConversion\MSSQLDTOConversion.cs" />
     <Compile Include="Nurse.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Patient.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Person.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TakenCareBy.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="udfDoctorPatients_Result.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="udfPatientDoctors_Result.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="udfPatientNurses_Result.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="uspDoctorPatients_Result.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="uspPatientDoctors_Result.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="uspPatientNurse_Result.cs">
-      <DependentUpon>HospitalModel.tt</DependentUpon>
+      <DependentUpon>HospitalDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="uspPatient_DoctorMedicalRecords_Result.cs">
+      <DependentUpon>HospitalDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="HospitalModel.edmx">
+    <EntityDeploy Include="HospitalDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>HospitalModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>HospitalDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="HospitalModel.edmx.diagram">
-      <DependentUpon>HospitalModel.edmx</DependentUpon>
+    <None Include="HospitalDB.edmx.diagram">
+      <DependentUpon>HospitalDB.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -138,22 +141,22 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HospitalModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HospitalModel.edmx</DependentUpon>
-      <LastGenOutput>HospitalModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="HospitalModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HospitalModel.edmx</DependentUpon>
-      <LastGenOutput>HospitalModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{c3443421-dd83-4740-837d-62418b1b7d2e}</Project>
       <Name>Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HospitalDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HospitalDB.edmx</DependentUpon>
+      <LastGenOutput>HospitalDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="HospitalDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HospitalDB.edmx</DependentUpon>
+      <LastGenOutput>HospitalDB.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

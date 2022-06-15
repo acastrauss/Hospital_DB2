@@ -15,10 +15,10 @@ namespace MSSQLDB
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class HospitalDBEntities1 : DbContext
+    public partial class HospitalDBEntities : DbContext
     {
-        public HospitalDBEntities1()
-            : base("name=HospitalDBEntities1")
+        public HospitalDBEntities()
+            : base("name=HospitalDBEntities")
         {
         }
     
@@ -38,34 +38,34 @@ namespace MSSQLDB
         public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<TakenCareBy> TakenCareBies { get; set; }
     
-        [DbFunction("HospitalDBEntities1", "udfDoctorPatients")]
+        [DbFunction("HospitalDBEntities", "udfDoctorPatients")]
         public virtual IQueryable<udfDoctorPatients_Result> udfDoctorPatients(Nullable<int> iDDoctor)
         {
             var iDDoctorParameter = iDDoctor.HasValue ?
                 new ObjectParameter("IDDoctor", iDDoctor) :
                 new ObjectParameter("IDDoctor", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<udfDoctorPatients_Result>("[HospitalDBEntities1].[udfDoctorPatients](@IDDoctor)", iDDoctorParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<udfDoctorPatients_Result>("[HospitalDBEntities].[udfDoctorPatients](@IDDoctor)", iDDoctorParameter);
         }
     
-        [DbFunction("HospitalDBEntities1", "udfPatientDoctors")]
+        [DbFunction("HospitalDBEntities", "udfPatientDoctors")]
         public virtual IQueryable<udfPatientDoctors_Result> udfPatientDoctors(Nullable<int> iDPatient)
         {
             var iDPatientParameter = iDPatient.HasValue ?
                 new ObjectParameter("IDPatient", iDPatient) :
                 new ObjectParameter("IDPatient", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<udfPatientDoctors_Result>("[HospitalDBEntities1].[udfPatientDoctors](@IDPatient)", iDPatientParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<udfPatientDoctors_Result>("[HospitalDBEntities].[udfPatientDoctors](@IDPatient)", iDPatientParameter);
         }
     
-        [DbFunction("HospitalDBEntities1", "udfPatientNurses")]
+        [DbFunction("HospitalDBEntities", "udfPatientNurses")]
         public virtual IQueryable<udfPatientNurses_Result> udfPatientNurses(Nullable<int> iDPatient)
         {
             var iDPatientParameter = iDPatient.HasValue ?
                 new ObjectParameter("IDPatient", iDPatient) :
                 new ObjectParameter("IDPatient", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<udfPatientNurses_Result>("[HospitalDBEntities1].[udfPatientNurses](@IDPatient)", iDPatientParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<udfPatientNurses_Result>("[HospitalDBEntities].[udfPatientNurses](@IDPatient)", iDPatientParameter);
         }
     
         public virtual int uspCreateDoctor(string nameD, Nullable<System.DateTime> birthDateD, string phoneNumberD, string medicalLicenseD, string degreeOfEducationD, string doctorLicense, string specialty, Nullable<int> iDDepartmentD, Nullable<int> iDHospitalD)
@@ -228,6 +228,15 @@ namespace MSSQLDB
                 new ObjectParameter("IDDoctor", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspDoctorPatients_Result>("uspDoctorPatients", iDDoctorParameter);
+        }
+    
+        public virtual ObjectResult<uspPatient_DoctorMedicalRecords_Result> uspPatient_DoctorMedicalRecords(Nullable<int> iDPatient)
+        {
+            var iDPatientParameter = iDPatient.HasValue ?
+                new ObjectParameter("IDPatient", iDPatient) :
+                new ObjectParameter("IDPatient", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspPatient_DoctorMedicalRecords_Result>("uspPatient_DoctorMedicalRecords", iDPatientParameter);
         }
     
         public virtual ObjectResult<uspPatientDoctors_Result> uspPatientDoctors(Nullable<int> iDPatient)

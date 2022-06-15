@@ -34,6 +34,13 @@ namespace Models.AppModels.FunctionsModels
         public int IDTCB { get; set; }
     }
 
-
+    public class uspPatient_DoctorRecords
+    {
+        public string DoctorLicense { get; set; }
+        public string Specialty { get; set; }
+        public String DoctorName { get; set; }
+        public string Diagnosis { get; set; }
+        public string Therapy { get; set; }
+    }
 
 }

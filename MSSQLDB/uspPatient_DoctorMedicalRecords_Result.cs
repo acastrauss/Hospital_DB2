@@ -11,12 +11,12 @@ namespace MSSQLDB
 {
     using System;
     
-    public partial class udfPatientDoctors_Result : Models.DTOConversion.IDBModel
+    public partial class uspPatient_DoctorMedicalRecords_Result : Models.DTOConversion.IDBModel
     {
+        public string Name { get; set; }
         public string DoctorLicense { get; set; }
         public string Specialty { get; set; }
-        public int IDP { get; set; }
-        public int IDPDoctor { get; set; }
-        public int IDPPatient { get; set; }
+        public string Diagnosis { get; set; }
+        public string Therapy { get; set; }
     }
 }

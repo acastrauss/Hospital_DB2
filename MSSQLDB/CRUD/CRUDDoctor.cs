@@ -17,7 +17,7 @@ namespace MSSQLDB.CRUD
             int ret = -1;
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     Models.AppModels.Doctor doctor = model as Models.AppModels.Doctor;
                     db.uspCreateDoctor(
@@ -51,7 +51,7 @@ namespace MSSQLDB.CRUD
 
             try
             {
-                using (var db = new HospitalDBEntities1())
+                using (var db = new HospitalDBEntities())
                 {
                     db.Doctors.ToList().ForEach(x => retVal.Add(_Converter.ConvertDoctor(x)));
                 }
