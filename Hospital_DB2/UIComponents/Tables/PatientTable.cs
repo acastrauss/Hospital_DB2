@@ -114,6 +114,20 @@ namespace Hospital_DB2.UIComponents.Tables
 
             sp.Children.Add(t3);
 
+
+            TextBox t4 = new TextBox()
+            {
+                IsReadOnly = true,
+                MaxWidth = 200,
+                MaxHeight = 50,
+                Width = 200,
+                Height = 50,
+                Text = "Nurses:"
+            };
+
+            sp.Children.Add(t4);
+
+
             this.Children.Add(sp);
 
         }
@@ -141,6 +155,11 @@ namespace Hospital_DB2.UIComponents.Tables
             tempCrud = dbCrud;
             dbCrud = new MSSQLDB.CRUD.CRUDPatient();
             var records = ((MSSQLDB.CRUD.CRUDPatient)dbCrud).GetPatientRecords(p.IDP);
+            dbCrud = tempCrud;
+
+            tempCrud = dbCrud;
+            dbCrud = new MSSQLDB.CRUD.CRUDPatient();
+            var nurses = ((MSSQLDB.CRUD.CRUDPatient)dbCrud).GetNursesPatient(p.IDP);
             dbCrud = tempCrud;
 
             // find doctors and medical records
@@ -232,12 +251,33 @@ namespace Hospital_DB2.UIComponents.Tables
                 IsReadOnly = true,
                 MaxWidth = 500,
                 MaxHeight = 300,
-                Text = recordsString,
-                
+                MinWidth = 150,
+                MinHeight = 50,
+                Text = recordsString
             };
 
             sp.Children.Add(t4);
 
+
+            String nursesString = String.Empty;
+
+            int cnt = 0;
+            foreach (var n in nurses)
+            {
+                nursesString += String.Format("Nurse{0} Seniority:{1}\n", ++cnt, n.SeniorityLevel);
+            }
+
+            TextBox t5 = new TextBox()
+            {
+                IsReadOnly = true,
+                MaxWidth = 500,
+                MaxHeight = 300,
+                MinWidth = 150,
+                MinHeight = 50,
+                Text = nursesString
+            };
+
+            sp.Children.Add(t5);
 
             this.Children.Add(sp);
 

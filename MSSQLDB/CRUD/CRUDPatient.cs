@@ -31,6 +31,25 @@ namespace MSSQLDB.CRUD
             return retVal;
         }
 
+        public ICollection<Models.AppModels.FunctionsModels.uspPatientNurseResult> GetNursesPatient(int patientId)
+        {
+            List<Models.AppModels.FunctionsModels.uspPatientNurseResult> retVal = new List<Models.AppModels.FunctionsModels.uspPatientNurseResult>();
+
+            try
+            {
+                using (var db = new HospitalDBEntities())
+                {
+                    retVal = db.uspPatientNurse(patientId).Select(x => _Converter.ConvertUSPPNResult(x)).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return retVal;
+        }
+
         public int CreateModel(ISystemModel model)
         {
             int ret = -1;
