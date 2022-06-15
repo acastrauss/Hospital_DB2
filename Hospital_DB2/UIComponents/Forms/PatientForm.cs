@@ -11,6 +11,8 @@ namespace Hospital_DB2.UIComponents.Forms
     {
         private List<Models.AppModels.Room> Rooms { get; set; } = new List<Models.AppModels.Room>();
         private List<Models.AppModels.Doctor> Doctors { get; set; } = new List<Models.AppModels.Doctor>();
+        private List<Models.AppModels.Nurse> Nurses { get; set; } = new List<Models.AppModels.Nurse>();
+
         private int DoctorId { get; set; } = -1;
         
         public PatientForm() :base()
@@ -64,25 +66,43 @@ namespace Hospital_DB2.UIComponents.Forms
             DbCrud = new MSSQLDB.CRUD.CRUDDoctor();
             Doctors = DbCrud.ReadAllModes().Select(x => (Models.AppModels.Doctor)x).ToList();
             DbCrud = tempCrud;
-            // napravi proceduru da vrati departman za sobu
-            var doctorInfo = Doctors.Select(x =>
-                String.Format("{0} with specialty {1}", x.Name, x.Specialty)
-            ).ToList();
-
-            ComboBox cb1 = new ComboBox();
-            cb1.ItemsSource = doctorInfo;
-            cb1.SelectionChanged += Cb_SelectionChanged2;
+            
+            DoctorsLb = new ListBox();
+            DoctorsLb.SelectionMode = SelectionMode.Multiple;
+            DoctorsLb.ItemsSource = Doctors;
+            DoctorsLb.SelectionChanged += Cb_SelectionChanged2;
             this.CreateInnerStackPanel(new List<System.Windows.UIElement>()
             {
-                lHospitals1, cb1
+                lHospitals1, DoctorsLb
+            });
+
+            Label lHospitals2 = new Label()
+            {
+                Content = "Nurses:"
+            };
+            tempCrud = DbCrud;
+            DbCrud = new MSSQLDB.CRUD.CRUDNurse();
+            Nurses = DbCrud.ReadAllModes().Select(x => (Models.AppModels.Nurse)x).ToList();
+            DbCrud = tempCrud;
+
+            NursesLb = new ListBox();
+            NursesLb.SelectionMode = SelectionMode.Multiple;
+            NursesLb.ItemsSource = Nurses;
+            NursesLb.SelectionChanged += Cb_SelectionChanged2;
+            this.CreateInnerStackPanel(new List<System.Windows.UIElement>()
+            {
+                lHospitals2, NursesLb
             });
 
         }
 
+        ListBox DoctorsLb = new ListBox();
+        ListBox NursesLb = new ListBox();
+
         private void Cb_SelectionChanged2(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox cb = sender as ComboBox;
-            DoctorId = this.Doctors[cb.SelectedIndex].IDP;
+            //ListBox cb = sender as ListBox;
+            //DoctorId = this.Doctors[cb.SelectedIndex].IDP;
         }
 
         private void Cb_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -93,7 +113,12 @@ namespace Hospital_DB2.UIComponents.Forms
 
         public override Models.AppModels.ISystemModel GetModel()
         {
-            ((Models.AppModels.Patient)this.Model).DoctorIds.Add(DoctorId);
+            var selected = DoctorsLb.SelectedItems.OfType<Models.AppModels.Doctor>().ToList();
+            selected.ForEach(s => ((Models.AppModels.Patient)this.Model).DoctorIds.Add(s.IDP));
+
+            var nursesSel = NursesLb.SelectedItems.OfType<Models.AppModels.Nurse>().ToList();
+            nursesSel.ForEach(s => ((Models.AppModels.Patient)this.Model).NurseIds.Add(s.IDP));
+
             return Model;
         }
     }

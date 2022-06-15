@@ -12,7 +12,7 @@ namespace Models.AppModels
         public int RoomId { get; set; }
         public ICollection<MedicalRecord> MedicalRecords { get; set; } = new List<MedicalRecord>();
         public ICollection<int> DoctorIds { get; set; } = new List<int>();
-
+        public ICollection<int> NurseIds { get; set; } = new List<int>();
         public Patient(
             string name, DateTime birthDate, string phoneNumber,
             string insurancePolicy,

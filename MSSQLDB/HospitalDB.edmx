@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HospitalDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HospitalDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="IDDep" />
@@ -483,8 +483,7 @@
             <End Role="TakenCareBy" EntitySet="TakenCareBy" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HospitalDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -845,13 +844,13 @@
             <End Role="Nurse" EntitySet="Nurses" />
           </AssociationSet>
           <FunctionImport Name="udfDoctorPatients" IsComposable="true" ReturnType="Collection(HospitalDBModel.udfDoctorPatients_Result)">
-            <Parameter Name="IDDoctor" Mode="In" Type="Int32" />
+          <Parameter Name="IDDoctor" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="udfPatientDoctors" IsComposable="true" ReturnType="Collection(HospitalDBModel.udfPatientDoctors_Result)">
-            <Parameter Name="IDPatient" Mode="In" Type="Int32" />
+          <Parameter Name="IDPatient" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="udfPatientNurses" IsComposable="true" ReturnType="Collection(HospitalDBModel.udfPatientNurses_Result)">
-            <Parameter Name="IDPatient" Mode="In" Type="Int32" />
+          <Parameter Name="IDPatient" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspCreateDoctor">
             <Parameter Name="NameD" Mode="In" Type="String" />
@@ -898,16 +897,16 @@
             <Parameter Name="IDCreated" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspDoctorPatients" ReturnType="Collection(HospitalDBModel.uspDoctorPatients_Result)">
-            <Parameter Name="IDDoctor" Mode="In" Type="Int32" />
+          <Parameter Name="IDDoctor" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspPatient_DoctorMedicalRecords" ReturnType="Collection(HospitalDBModel.uspPatient_DoctorMedicalRecords_Result)">
-            <Parameter Name="IDPatient" Mode="In" Type="Int32" />
+          <Parameter Name="IDPatient" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspPatientDoctors" ReturnType="Collection(HospitalDBModel.uspPatientDoctors_Result)">
-            <Parameter Name="IDPatient" Mode="In" Type="Int32" />
+          <Parameter Name="IDPatient" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspPatientNurse" ReturnType="Collection(HospitalDBModel.uspPatientNurse_Result)">
-            <Parameter Name="IDPatient" Mode="In" Type="Int32" />
+          <Parameter Name="IDPatient" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="uspDoctorPatients_Result">

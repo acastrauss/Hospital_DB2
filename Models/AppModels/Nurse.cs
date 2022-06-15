@@ -27,5 +27,10 @@ namespace Models.AppModels
         }
 
         public Nurse() : base () { }
+
+        public override string ToString()
+        {
+            return String.Format("{0} {1}", Name, SeniorityLevel);
+        }
     }
 }

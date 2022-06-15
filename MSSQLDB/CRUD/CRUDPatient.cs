@@ -51,14 +51,21 @@ namespace MSSQLDB.CRUD
 
                     int patientId = db.Patients.Max(x => x.IDP);
 
+
                     patient.DoctorIds.ToList().ForEach((did) =>
                     {
-                        db.TakenCareBies.Add(new TakenCareBy()
+                        var nurses = db.Nurses.Where(x => patient.NurseIds.Contains(x.IDP)).ToList();
+
+                        var tcb = new TakenCareBy()
                         {
                             IDPDoctor = did,
-                            IDPPatient = patientId
-                        });
+                            IDPPatient = patientId,
+                            Nurses = nurses
+                        };
+
+                        db.TakenCareBies.Add(tcb);
                     });
+                    
 
                     if(db.Rooms.Where(x => x.IDRoom == patient.RoomId).Count() > 0)
                     {
