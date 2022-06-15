@@ -288,8 +288,8 @@
     <End Role="MedicalRecord" Type="Self.MedicalRecord" Multiplicity="*" />
   </Association>
   <Association Name="HelpingWithCare">
-    <End Role="TakenCareBy" Type="Self.TakenCareBy" Multiplicity="*" />
     <End Role="Nurse" Type="Self.Nurse" Multiplicity="*" />
+    <End Role="TakenCareBy" Type="Self.TakenCareBy" Multiplicity="*" />
   </Association>
   <EntityContainer Name="HospitalDBEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Departments" EntityType="Self.Department" />
@@ -351,8 +351,8 @@
       <End Role="MedicalRecord" EntitySet="MedicalRecords" />
     </AssociationSet>
     <AssociationSet Name="HelpingWithCare" Association="Self.HelpingWithCare">
-      <End Role="TakenCareBy" EntitySet="TakenCareBies" />
       <End Role="Nurse" EntitySet="Nurses" />
+      <End Role="TakenCareBy" EntitySet="TakenCareBies" />
     </AssociationSet>
     <FunctionImport Name="udfDoctorPatients" IsComposable="true" ReturnType="Collection(HospitalDBModel.udfDoctorPatients_Result)">
       <Parameter Name="IDDoctor" Mode="In" Type="Int32" />
@@ -406,6 +406,9 @@
       <Parameter Name="BirthDate" Mode="In" Type="DateTime" />
       <Parameter Name="PhoneNumber" Mode="In" Type="String" />
       <Parameter Name="IDCreated" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspCursosHospital">
+      <Parameter Name="IDHospital" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="uspDoctorPatients" ReturnType="Collection(HospitalDBModel.uspDoctorPatients_Result)">
       <Parameter Name="IDDoctor" Mode="In" Type="Int32" />

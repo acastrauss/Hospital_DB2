@@ -108,11 +108,11 @@
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="HelpingWithCare" TypeName="HospitalDBModel.HelpingWithCare" StoreEntitySet="HelpingWithCare">
-      <EndProperty Name="TakenCareBy">
-        <ScalarProperty Name="IDTCB" ColumnName="IDTCB" />
-      </EndProperty>
       <EndProperty Name="Nurse">
         <ScalarProperty Name="IDP" ColumnName="IDPNurse" />
+      </EndProperty>
+      <EndProperty Name="TakenCareBy">
+        <ScalarProperty Name="IDTCB" ColumnName="IDTCB" />
       </EndProperty>
     </AssociationSetMapping>
     <FunctionImportMapping FunctionName="HospitalDBModel.Store.udfDoctorPatients" FunctionImportName="udfDoctorPatients">
@@ -154,6 +154,7 @@
     <FunctionImportMapping FunctionImportName="uspCreateNurse" FunctionName="HospitalDBModel.Store.uspCreateNurse" />
     <FunctionImportMapping FunctionImportName="uspCreatePatient" FunctionName="HospitalDBModel.Store.uspCreatePatient" />
     <FunctionImportMapping FunctionImportName="uspCreatePerson" FunctionName="HospitalDBModel.Store.uspCreatePerson" />
+    <FunctionImportMapping FunctionImportName="uspCursosHospital" FunctionName="HospitalDBModel.Store.uspCursosHospital" />
     <FunctionImportMapping FunctionImportName="uspDoctorPatients" FunctionName="HospitalDBModel.Store.uspDoctorPatients">
       <ResultMapping>
         <ComplexTypeMapping TypeName="HospitalDBModel.uspDoctorPatients_Result">

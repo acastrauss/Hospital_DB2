@@ -221,6 +221,15 @@ namespace MSSQLDB
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspCreatePerson", nameParameter, birthDateParameter, phoneNumberParameter, iDCreated);
         }
     
+        public virtual int uspCursosHospital(Nullable<int> iDHospital)
+        {
+            var iDHospitalParameter = iDHospital.HasValue ?
+                new ObjectParameter("IDHospital", iDHospital) :
+                new ObjectParameter("IDHospital", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspCursosHospital", iDHospitalParameter);
+        }
+    
         public virtual ObjectResult<uspDoctorPatients_Result> uspDoctorPatients(Nullable<int> iDDoctor)
         {
             var iDDoctorParameter = iDDoctor.HasValue ?

@@ -173,18 +173,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_HelpingWithCare_HelpingWithCare">
-    <End Role="TakenCareBy" Type="Self.TakenCareBy" Multiplicity="1" />
-    <End Role="HelpingWithCare" Type="Self.HelpingWithCare" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TakenCareBy">
-        <PropertyRef Name="IDTCB" />
-      </Principal>
-      <Dependent Role="HelpingWithCare">
-        <PropertyRef Name="IDTCB" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_HelpingWithCare_Nurse">
     <End Role="Nurse" Type="Self.Nurse" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -406,6 +394,9 @@
     <Parameter Name="PhoneNumber" Type="nchar" Mode="In" />
     <Parameter Name="IDCreated" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="uspCursosHospital" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IDHospital" Type="int" Mode="In" />
+  </Function>
   <Function Name="uspDoctorPatients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="IDDoctor" Type="int" Mode="In" />
   </Function>
@@ -450,10 +441,6 @@
     <AssociationSet Name="FK_HealthCareWorker_Person" Association="Self.FK_HealthCareWorker_Person">
       <End Role="Person" EntitySet="Person" />
       <End Role="HealthCareWorker" EntitySet="HealthCareWorker" />
-    </AssociationSet>
-    <AssociationSet Name="FK_HelpingWithCare_HelpingWithCare" Association="Self.FK_HelpingWithCare_HelpingWithCare">
-      <End Role="TakenCareBy" EntitySet="TakenCareBy" />
-      <End Role="HelpingWithCare" EntitySet="HelpingWithCare" />
     </AssociationSet>
     <AssociationSet Name="FK_HelpingWithCare_Nurse" Association="Self.FK_HelpingWithCare_Nurse">
       <End Role="Nurse" EntitySet="Nurse" />

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="HospitalDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="HospitalDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="IDDep" />
@@ -175,18 +175,6 @@
             </Principal>
             <Dependent Role="HealthCareWorker">
               <PropertyRef Name="IDP" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HelpingWithCare_HelpingWithCare">
-          <End Role="TakenCareBy" Type="Self.TakenCareBy" Multiplicity="1" />
-          <End Role="HelpingWithCare" Type="Self.HelpingWithCare" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TakenCareBy">
-              <PropertyRef Name="IDTCB" />
-            </Principal>
-            <Dependent Role="HelpingWithCare">
-              <PropertyRef Name="IDTCB" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -411,6 +399,9 @@
           <Parameter Name="PhoneNumber" Type="nchar" Mode="In" />
           <Parameter Name="IDCreated" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="uspCursosHospital" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDHospital" Type="int" Mode="In" />
+        </Function>
         <Function Name="uspDoctorPatients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IDDoctor" Type="int" Mode="In" />
         </Function>
@@ -456,10 +447,6 @@
             <End Role="Person" EntitySet="Person" />
             <End Role="HealthCareWorker" EntitySet="HealthCareWorker" />
           </AssociationSet>
-          <AssociationSet Name="FK_HelpingWithCare_HelpingWithCare" Association="Self.FK_HelpingWithCare_HelpingWithCare">
-            <End Role="TakenCareBy" EntitySet="TakenCareBy" />
-            <End Role="HelpingWithCare" EntitySet="HelpingWithCare" />
-          </AssociationSet>
           <AssociationSet Name="FK_HelpingWithCare_Nurse" Association="Self.FK_HelpingWithCare_Nurse">
             <End Role="Nurse" EntitySet="Nurse" />
             <End Role="HelpingWithCare" EntitySet="HelpingWithCare" />
@@ -501,7 +488,8 @@
             <End Role="TakenCareBy" EntitySet="TakenCareBy" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HospitalDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -793,8 +781,8 @@
           <End Role="MedicalRecord" Type="Self.MedicalRecord" Multiplicity="*" />
         </Association>
         <Association Name="HelpingWithCare">
-          <End Role="TakenCareBy" Type="Self.TakenCareBy" Multiplicity="*" />
           <End Role="Nurse" Type="Self.Nurse" Multiplicity="*" />
+          <End Role="TakenCareBy" Type="Self.TakenCareBy" Multiplicity="*" />
         </Association>
         <EntityContainer Name="HospitalDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Departments" EntityType="Self.Department" />
@@ -856,17 +844,17 @@
             <End Role="MedicalRecord" EntitySet="MedicalRecords" />
           </AssociationSet>
           <AssociationSet Name="HelpingWithCare" Association="Self.HelpingWithCare">
-            <End Role="TakenCareBy" EntitySet="TakenCareBies" />
             <End Role="Nurse" EntitySet="Nurses" />
+            <End Role="TakenCareBy" EntitySet="TakenCareBies" />
           </AssociationSet>
           <FunctionImport Name="udfDoctorPatients" IsComposable="true" ReturnType="Collection(HospitalDBModel.udfDoctorPatients_Result)">
-          <Parameter Name="IDDoctor" Mode="In" Type="Int32" />
+            <Parameter Name="IDDoctor" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="udfPatientDoctors" IsComposable="true" ReturnType="Collection(HospitalDBModel.udfPatientDoctors_Result)">
-          <Parameter Name="IDPatient" Mode="In" Type="Int32" />
+            <Parameter Name="IDPatient" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="udfPatientNurses" IsComposable="true" ReturnType="Collection(HospitalDBModel.udfPatientNurses_Result)">
-          <Parameter Name="IDPatient" Mode="In" Type="Int32" />
+            <Parameter Name="IDPatient" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspCreateDoctor">
             <Parameter Name="NameD" Mode="In" Type="String" />
@@ -912,17 +900,20 @@
             <Parameter Name="PhoneNumber" Mode="In" Type="String" />
             <Parameter Name="IDCreated" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="uspCursosHospital">
+            <Parameter Name="IDHospital" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="uspDoctorPatients" ReturnType="Collection(HospitalDBModel.uspDoctorPatients_Result)">
-          <Parameter Name="IDDoctor" Mode="In" Type="Int32" />
+            <Parameter Name="IDDoctor" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspPatient_DoctorMedicalRecords" ReturnType="Collection(HospitalDBModel.uspPatient_DoctorMedicalRecords_Result)">
-          <Parameter Name="IDPatient" Mode="In" Type="Int32" />
+            <Parameter Name="IDPatient" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspPatientDoctors" ReturnType="Collection(HospitalDBModel.uspPatientDoctors_Result)">
-          <Parameter Name="IDPatient" Mode="In" Type="Int32" />
+            <Parameter Name="IDPatient" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspPatientNurse" ReturnType="Collection(HospitalDBModel.uspPatientNurse_Result)">
-          <Parameter Name="IDPatient" Mode="In" Type="Int32" />
+            <Parameter Name="IDPatient" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="uspDoctorPatients_Result">
@@ -1067,11 +1058,11 @@
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="HelpingWithCare" TypeName="HospitalDBModel.HelpingWithCare" StoreEntitySet="HelpingWithCare">
-            <EndProperty Name="TakenCareBy">
-              <ScalarProperty Name="IDTCB" ColumnName="IDTCB" />
-            </EndProperty>
             <EndProperty Name="Nurse">
               <ScalarProperty Name="IDP" ColumnName="IDPNurse" />
+            </EndProperty>
+            <EndProperty Name="TakenCareBy">
+              <ScalarProperty Name="IDTCB" ColumnName="IDTCB" />
             </EndProperty>
           </AssociationSetMapping>
           <FunctionImportMapping FunctionName="HospitalDBModel.Store.udfDoctorPatients" FunctionImportName="udfDoctorPatients">
@@ -1113,6 +1104,7 @@
           <FunctionImportMapping FunctionImportName="uspCreateNurse" FunctionName="HospitalDBModel.Store.uspCreateNurse" />
           <FunctionImportMapping FunctionImportName="uspCreatePatient" FunctionName="HospitalDBModel.Store.uspCreatePatient" />
           <FunctionImportMapping FunctionImportName="uspCreatePerson" FunctionName="HospitalDBModel.Store.uspCreatePerson" />
+          <FunctionImportMapping FunctionImportName="uspCursosHospital" FunctionName="HospitalDBModel.Store.uspCursosHospital" />
           <FunctionImportMapping FunctionImportName="uspDoctorPatients" FunctionName="HospitalDBModel.Store.uspDoctorPatients">
             <ResultMapping>
               <ComplexTypeMapping TypeName="HospitalDBModel.uspDoctorPatients_Result">
