@@ -95,7 +95,31 @@ namespace MSSQLDB.CRUD
 
         public int UpdateModel(ISystemModel model)
         {
-            throw new NotImplementedException();
+            int ret = -1;
+            try
+            {
+                Models.AppModels.Doctor doctor = model as Models.AppModels.Doctor;
+
+                using (var db = new HospitalDBEntities())
+                {
+                    var doctorDB = db.Doctors.Where(x => x.IDP == doctor.IDP).FirstOrDefault();
+                    doctorDB.HealthCareWorker.Person.Name = doctor.Name;
+                    doctorDB.HealthCareWorker.Person.PhoneNumber = doctor.PhoneNumber;
+                    doctorDB.HealthCareWorker.MedicalLicense = doctor.MedicalLicense;
+                    doctorDB.HealthCareWorker.DegreeOfEducation = doctor.DegreeOfEducation;
+                    doctorDB.DoctorLicense = doctor.DoctorLicense;
+                    doctorDB.Specialty = doctor.Specialty;
+                    
+                    ret = db.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return ret;
         }
     }
 }

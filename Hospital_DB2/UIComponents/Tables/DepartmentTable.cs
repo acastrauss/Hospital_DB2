@@ -99,7 +99,7 @@ namespace Hospital_DB2.UIComponents.Tables
             this.Children.Add(sp);
         }
 
-        private void AddDepartment(Models.AppModels.Department d)
+        private void AddDepartment(Models.AppModels.Department d, int indx)
         {
             StackPanel sp = new StackPanel();
             sp.Orientation = Orientation.Horizontal;
@@ -123,13 +123,17 @@ namespace Hospital_DB2.UIComponents.Tables
 
             TextBox t1 = new TextBox()
             {
-                IsReadOnly = true,
+                //IsReadOnly = true,
                 MaxWidth = 200,
                 MaxHeight = 50,
                 Width = 200,
                 Height = 50,
                 Text = d.PhoneNumber
             };
+            t1.TextChanged += new TextChangedEventHandler(delegate (object sender, TextChangedEventArgs args)
+            {
+                ((Models.AppModels.Department)this.Departments[indx]).PhoneNumber = t1.Text;
+            });
 
             sp.Children.Add(t1);
 
@@ -185,14 +189,30 @@ namespace Hospital_DB2.UIComponents.Tables
 
             sp.Children.Add(t5);
 
-            Button delete = new Button();
-            delete.Click += Delete_Click;
-            delete.Content = "Delete";
-            delete.Name = "btn_" + d.IDDep.ToString();
-            sp.Children.Add(delete);
+            //Button delete = new Button();
+            //delete.Click += Delete_Click;
+            //delete.Content = "Delete";
+            //delete.Name = "btn_" + d.IDDep.ToString();
+            //sp.Children.Add(delete);
+            Button update = new Button();
+            update.Content = "Update";
+            update.Name = "btn_" + indx + "_upd";
+            update.Click += Update_Click;
 
+            sp.Children.Add(update);
 
             this.Children.Add(sp);
+        }
+
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            Button update = sender as Button;
+            int patientIndx = int.Parse(update.Name.Split('_')[1]);
+
+            this.dbCrud = new MSSQLDB.CRUD.CRUDDepartment();
+            this.dbCrud.UpdateModel(this.Departments[patientIndx]);
+
+            Restart();
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -213,10 +233,10 @@ namespace Hospital_DB2.UIComponents.Tables
             Departments = dbCrud.ReadAllModes().Select(x => (Models.AppModels.Department)x).ToList();
 
             AddHeader();
-
+            int indx = 0;
             foreach (var p in Departments)
             {
-                AddDepartment(p);
+                AddDepartment(p, indx++);
             }
         }
     }

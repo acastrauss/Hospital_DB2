@@ -114,7 +114,6 @@ namespace MSSQLDB.CRUD
                     var hdb = db.Hospitals.Where(x => x.IDH == happ.IDH).FirstOrDefault();
                      
                     hdb.Address = happ.Address;
-                    hdb.DateBuilt = happ.DateBuilt;
                     hdb.Name = happ.Name;
 
                     List<MSSQLDB.Department> deps = new List<Department>();

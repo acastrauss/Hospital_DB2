@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Hospital_DB2.UIComponents.Tables
@@ -13,14 +14,7 @@ namespace Hospital_DB2.UIComponents.Tables
         private List<Models.AppModels.Hospital> Hospitals = new List<Models.AppModels.Hospital>();
         public HospitalTable() : base()
         {
-            this.dbCrud = new MSSQLDB.CRUD.CRUDHospital();
-            Hospitals = this.dbCrud.ReadAllModes().Select(x => (Models.AppModels.Hospital)x).ToList();
-            AddHeader();
-
-            foreach (var h in Hospitals)
-            {
-                AddHospital(h);
-            }
+            Restart();
         }
 
         protected override void AddHeader()
@@ -81,32 +75,40 @@ namespace Hospital_DB2.UIComponents.Tables
             this.Children.Add(sp);
         }
     
-        private void AddHospital(Models.AppModels.Hospital h)
+        private void AddHospital(Models.AppModels.Hospital h, int indx)
         {
             StackPanel sp = new StackPanel();
             sp.Orientation = Orientation.Horizontal;
 
             TextBox t1 = new TextBox()
             {
-                IsReadOnly = true,
+                //IsReadOnly = true,
                 MaxWidth = 200,
                 MaxHeight = 50,
                 Width = 200,
                 Height = 50,
                 Text = h.Name
             };
+            t1.TextChanged += new TextChangedEventHandler(delegate (object sender, TextChangedEventArgs args)
+            {
+                ((Models.AppModels.Hospital)this.Hospitals[indx]).Name = t1.Text;
+            });
 
             sp.Children.Add(t1);
 
             TextBox t2 = new TextBox()
             {
-                IsReadOnly = true,
+                //IsReadOnly = true,
                 MaxWidth = 200,
                 MaxHeight = 50,
                 Width = 200,
                 Height = 50,
                 Text = h.Address
             };
+            t2.TextChanged += new TextChangedEventHandler(delegate (object sender, TextChangedEventArgs args)
+            {
+                ((Models.AppModels.Hospital)this.Hospitals[indx]).Address = t2.Text;
+            });
 
             sp.Children.Add(t2);
 
@@ -143,7 +145,40 @@ namespace Hospital_DB2.UIComponents.Tables
 
             sp.Children.Add(t4);
 
+            Button update = new Button();
+            update.Content = "Update";
+            update.Name = "btn_" + indx + "_upd";
+            update.Click += Update_Click;
+
+            sp.Children.Add(update);
+
             this.Children.Add(sp);
+        }
+
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            Button update = sender as Button;
+            int patientIndx = int.Parse(update.Name.Split('_')[1]);
+
+            this.dbCrud = new MSSQLDB.CRUD.CRUDHospital();
+            this.dbCrud.UpdateModel(this.Hospitals[patientIndx]);
+
+            Restart();
+        }
+
+        private void Restart()
+        {
+            this.Children.Clear();
+            this.dbCrud = new MSSQLDB.CRUD.CRUDHospital();
+            Hospitals = dbCrud.ReadAllModes().Select(x => (Models.AppModels.Hospital)x).ToList();
+
+            AddHeader();
+            int indx = 0;
+
+            foreach (var p in Hospitals)
+            {
+                AddHospital(p, indx++);
+            }
         }
     }
 }

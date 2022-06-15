@@ -131,7 +131,25 @@ namespace MSSQLDB.CRUD
 
         public int UpdateModel(ISystemModel model)
         {
-            throw new NotImplementedException();
+            int ret = -1;
+            try
+            {
+                Models.AppModels.Department department = model as Models.AppModels.Department;
+
+                using (var db = new HospitalDBEntities())
+                {
+                    var depDB = db.Departments.Where(x => x.IDDep == department.IDDep).FirstOrDefault();
+                    depDB.PhoneNumber = department.PhoneNumber;
+                    ret = db.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return ret;
         }
 
         public int GetNumberOfNurses(int depId)

@@ -43,12 +43,5 @@ namespace Hospital_DB2
             currentTab = new ReadTab();
             tabDiv.Children.Add(currentTab);
         }
-
-        private void Modify_Button_Click(object sender, RoutedEventArgs e)
-        {
-            tabDiv.Children.Remove(currentTab);
-
-        }
-
     }
 }

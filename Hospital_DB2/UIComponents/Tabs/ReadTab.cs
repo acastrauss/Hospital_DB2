@@ -7,6 +7,14 @@ using System.Windows.Controls;
 
 namespace Hospital_DB2.UIComponents.Tabs
 {
+    enum EntititesRMD
+    {
+        Hospital = 0,
+        Department = 1,
+        Patient = 2,
+        Doctor = 3,
+        Nurse = 4,
+    }
     class ReadTab : ITab
     {
         public Models.ICRUD.ICRUD dbCrud = null;
@@ -20,7 +28,7 @@ namespace Hospital_DB2.UIComponents.Tabs
         public ReadTab() : base()
         {
             _Table = new Tables.HospitalTable();
-            this._Entities.ItemsSource = Enum.GetValues(typeof(Entities)).Cast<Entities>();
+            this._Entities.ItemsSource = Enum.GetValues(typeof(EntititesRMD)).Cast<Entities>();
             this._Entities.SelectedIndex = 0;
             this._Entities.SelectionChanged += _Entities_SelectionChanged;
             this.Children.Add(_Entities);
@@ -31,30 +39,25 @@ namespace Hospital_DB2.UIComponents.Tabs
         {
             ComboBox cb = sender as ComboBox;
             var aaa = cb.SelectedIndex;
-            Entities selected = (Entities)aaa;
+            EntititesRMD selected = (EntititesRMD)aaa;
             this.Children.Remove(_Table);
 
             switch (selected)
             {
-                case Entities.Hospital:
+                case EntititesRMD.Hospital:
                     _Table = new Tables.HospitalTable();
                     break;
-                case Entities.Department:
+                case EntititesRMD.Department:
                     _Table = new Tables.DepartmentTable();
                     break;
-                case Entities.Room:
-
-                    break;
-                case Entities.Patient:
+                case EntititesRMD.Patient:
                     _Table = new Tables.PatientTable();
                     break;
-                case Entities.Doctor:
+                case EntititesRMD.Doctor:
                     _Table = new Tables.DoctorTable();
                     break;
-                case Entities.Nurse:
+                case EntititesRMD.Nurse:
                     _Table = new Tables.NurseTable();
-                    break;
-                case Entities.MedicalRecord:
                     break;
                 default:
                     break;
