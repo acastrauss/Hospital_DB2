@@ -139,7 +139,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FillsRecord_MedicalRecord">
-          <End Role="MedicalRecord" Type="Self.MedicalRecord" Multiplicity="1" />
+          <End Role="MedicalRecord" Type="Self.MedicalRecord" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="FillsRecord" Type="Self.FillsRecord" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MedicalRecord">
@@ -299,7 +301,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TakenCareBy_Patient">
-          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="TakenCareBy" Type="Self.TakenCareBy" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Patient">

@@ -13,15 +13,7 @@ namespace Hospital_DB2.UIComponents.Tables
 
         public PatientTable() :base()
         {
-            this.dbCrud = new MSSQLDB.CRUD.CRUDPatient();
-            Patients = dbCrud.ReadAllModes().Select(x => (Models.AppModels.Patient)x).ToList();
-
-            AddHeader();
-
-            foreach (var p in Patients)
-            {
-                AddPatient(p);
-            }
+            Restart();
         }
 
         protected override void AddHeader()
@@ -279,8 +271,40 @@ namespace Hospital_DB2.UIComponents.Tables
 
             sp.Children.Add(t5);
 
+            Button delete = new Button();
+            delete.Content = "Delete";
+            delete.Name = "btn_" + p.IDP.ToString();
+            delete.Click += Delete_Click;
+
+            sp.Children.Add(delete);
+
             this.Children.Add(sp);
 
+        }
+
+        private void Delete_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Button del = sender as Button;
+            int patientId = int.Parse(del.Name.Split('_')[1]);
+            
+            this.dbCrud = new MSSQLDB.CRUD.CRUDPatient();
+            this.dbCrud.DeleteModel(patientId);
+
+            Restart();
+        }
+
+        private void Restart()
+        {
+            this.Children.Clear();
+            this.dbCrud = new MSSQLDB.CRUD.CRUDPatient();
+            Patients = dbCrud.ReadAllModes().Select(x => (Models.AppModels.Patient)x).ToList();
+
+            AddHeader();
+
+            foreach (var p in Patients)
+            {
+                AddPatient(p);
+            }
         }
     }
 }
