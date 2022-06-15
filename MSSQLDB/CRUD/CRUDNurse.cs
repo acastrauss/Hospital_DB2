@@ -41,7 +41,26 @@ namespace MSSQLDB.CRUD
 
         public int DeleteModel(int id)
         {
-            throw new NotImplementedException();
+            int retVal = -1;
+
+            try
+            {
+                using (var db = new HospitalDBEntities())
+                {
+                    var p = db.People.Where(x => x.IDP == id).FirstOrDefault();
+                    if (p != null)
+                    {
+                        db.People.Remove(p);
+                    }
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return retVal;
         }
 
         public ICollection<ISystemModel> ReadAllModes()
@@ -75,7 +94,32 @@ namespace MSSQLDB.CRUD
 
         public int UpdateModel(ISystemModel model)
         {
-            throw new NotImplementedException();
+            int ret = -1;
+            try
+            {
+                Models.AppModels.Nurse nurse = model as Models.AppModels.Nurse;
+
+                using (var db = new HospitalDBEntities())
+                {
+                    var nurseDB = db.Nurses.Where(x => x.IDP == nurse.IDP).FirstOrDefault();
+
+                    nurseDB.HealthCareWorker.Person.Name = nurse.Name;
+                    nurseDB.HealthCareWorker.Person.PhoneNumber = nurse.PhoneNumber;
+                    nurseDB.HealthCareWorker.MedicalLicense = nurse.MedicalLicense;
+                    nurseDB.HealthCareWorker.DegreeOfEducation = nurse.DegreeOfEducation;
+                    nurseDB.SeniorityLevel = nurse.SeniorityLevel;
+                    
+                    ret = db.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return ret;
+
         }
     }
 }

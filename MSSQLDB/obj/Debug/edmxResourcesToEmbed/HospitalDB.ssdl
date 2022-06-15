@@ -108,9 +108,7 @@
     <Property Name="IDTCB" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <Association Name="FK_Doctor_HealthCareWorker">
-    <End Role="HealthCareWorker" Type="Self.HealthCareWorker" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+    <End Role="HealthCareWorker" Type="Self.HealthCareWorker" Multiplicity="1" />
     <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="HealthCareWorker">
@@ -164,9 +162,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_HealthCareWorker_Person">
-    <End Role="Person" Type="Self.Person" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
     <End Role="HealthCareWorker" Type="Self.HealthCareWorker" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Person">
@@ -190,7 +186,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_HelpingWithCare_Nurse">
-    <End Role="Nurse" Type="Self.Nurse" Multiplicity="1" />
+    <End Role="Nurse" Type="Self.Nurse" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="HelpingWithCare" Type="Self.HelpingWithCare" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Nurse">
@@ -198,6 +196,18 @@
       </Principal>
       <Dependent Role="HelpingWithCare">
         <PropertyRef Name="IDPNurse" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HelpingWithCare_TakenCareBy">
+    <End Role="TakenCareBy" Type="Self.TakenCareBy" Multiplicity="1" />
+    <End Role="HelpingWithCare" Type="Self.HelpingWithCare" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TakenCareBy">
+        <PropertyRef Name="IDTCB" />
+      </Principal>
+      <Dependent Role="HelpingWithCare">
+        <PropertyRef Name="IDTCB" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -447,6 +457,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_HelpingWithCare_Nurse" Association="Self.FK_HelpingWithCare_Nurse">
       <End Role="Nurse" EntitySet="Nurse" />
+      <End Role="HelpingWithCare" EntitySet="HelpingWithCare" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HelpingWithCare_TakenCareBy" Association="Self.FK_HelpingWithCare_TakenCareBy">
+      <End Role="TakenCareBy" EntitySet="TakenCareBy" />
       <End Role="HelpingWithCare" EntitySet="HelpingWithCare" />
     </AssociationSet>
     <AssociationSet Name="FK_Hospital_Department" Association="Self.FK_Hospital_Department">

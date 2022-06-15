@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Hospital_DB2.UIComponents.Tables
@@ -124,7 +125,7 @@ namespace Hospital_DB2.UIComponents.Tables
 
         }
 
-        private void AddPatient(Models.AppModels.Patient p)
+        private void AddPatient(Models.AppModels.Patient p, int indx)
         {
             StackPanel sp = new StackPanel();
             sp.Orientation = Orientation.Horizontal;
@@ -158,38 +159,52 @@ namespace Hospital_DB2.UIComponents.Tables
 
             TextBox t01 = new TextBox()
             {
-                IsReadOnly = true,
+                //IsReadOnly = true,
                 MaxWidth = 200,
                 MaxHeight = 50,
                 Width = 200,
                 Height = 50,
                 Text = p.Name
             };
+            t01.TextChanged += new TextChangedEventHandler(delegate (object sender, TextChangedEventArgs args)
+            {
+                ((Models.AppModels.Patient)this.Patients[indx]).Name = t01.Text;
+            });
+
 
             sp.Children.Add(t01);
 
             TextBox t02 = new TextBox()
             {
-                IsReadOnly = true,
+                //IsReadOnly = true,
                 MaxWidth = 200,
                 MaxHeight = 50,
                 Width = 200,
                 Height = 50,
                 Text = p.PhoneNumber
             };
+            t02.TextChanged += new TextChangedEventHandler(delegate (object sender, TextChangedEventArgs args)
+            {
+                ((Models.AppModels.Patient)this.Patients[indx]).PhoneNumber = t02.Text;
+            });
+
 
             sp.Children.Add(t02);
 
 
             TextBox t2 = new TextBox()
             {
-                IsReadOnly = true,
+                //IsReadOnly = true,
                 MaxWidth = 200,
                 MaxHeight = 50,
                 Width = 200,
                 Height = 50,
                 Text = p.InsurancePolicy
             };
+            t2.TextChanged += new TextChangedEventHandler(delegate (object sender, TextChangedEventArgs args)
+            {
+                ((Models.AppModels.Patient)this.Patients[indx]).InsurancePolicy = t2.Text;
+            });
 
             sp.Children.Add(t2);
 
@@ -278,8 +293,25 @@ namespace Hospital_DB2.UIComponents.Tables
 
             sp.Children.Add(delete);
 
-            this.Children.Add(sp);
+            Button update = new Button();
+            update.Content = "Update";
+            update.Name = "btn_" + indx + "_upd";
+            update.Click += Update_Click;
 
+            sp.Children.Add(update);
+
+            this.Children.Add(sp);
+        }
+
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            Button update = sender as Button;
+            int patientIndx = int.Parse(update.Name.Split('_')[1]);
+
+            this.dbCrud = new MSSQLDB.CRUD.CRUDPatient();
+            this.dbCrud.UpdateModel(this.Patients[patientIndx]);
+
+            Restart();
         }
 
         private void Delete_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -301,9 +333,10 @@ namespace Hospital_DB2.UIComponents.Tables
 
             AddHeader();
 
+            int indx = 0;
             foreach (var p in Patients)
             {
-                AddPatient(p);
+                AddPatient(p, indx++);
             }
         }
     }

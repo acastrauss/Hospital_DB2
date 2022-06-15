@@ -180,9 +180,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Doctor_HealthCareWorker">
-    <End Role="HealthCareWorker" Type="Self.HealthCareWorker" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+    <End Role="HealthCareWorker" Type="Self.HealthCareWorker" Multiplicity="1" />
     <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="HealthCareWorker">
@@ -206,9 +204,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_HealthCareWorker_Person">
-    <End Role="Person" Type="Self.Person" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
     <End Role="HealthCareWorker" Type="Self.HealthCareWorker" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Person">
@@ -274,7 +270,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TakenCareBy_Patient">
-    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="TakenCareBy" Type="Self.TakenCareBy" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Patient">

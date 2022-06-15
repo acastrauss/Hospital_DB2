@@ -112,7 +112,7 @@ namespace MSSQLDB.CRUD
                 using (var db = new HospitalDBEntities())
                 {
                     var hdb = db.Hospitals.Where(x => x.IDH == happ.IDH).FirstOrDefault();
-
+                     
                     hdb.Address = happ.Address;
                     hdb.DateBuilt = happ.DateBuilt;
                     hdb.Name = happ.Name;

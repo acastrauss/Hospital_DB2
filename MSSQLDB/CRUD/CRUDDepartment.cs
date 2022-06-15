@@ -42,7 +42,52 @@ namespace MSSQLDB.CRUD
 
         public int DeleteModel(int id)
         {
-            throw new NotImplementedException();
+            int retVal = -1;
+
+            try
+            {
+                using (var db = new HospitalDBEntities())
+                {
+                    var dep = db.Departments.Where(x => x.IDDep == id).FirstOrDefault();
+
+                    if (dep != null)
+                    {
+                        //List<int> hcwIds = new List<int>();
+                        //dep.HealthCareWorkers.ToList().ForEach(hcw => hcwIds.Add(hcw.IDP));
+
+                        //hcwIds.ForEach((hcId) =>
+                        //{
+                        //    var worker = db.HealthCareWorkers.Where(x => x.IDP == hcId).FirstOrDefault();
+                        //    if (worker != null)
+                        //    {
+                        //        if (db.Doctors.Where(x => x.IDP == worker.IDP).Count() > 0)
+                        //        {
+                        //            // delete as doctor
+                        //            var doc = db.Doctors.Where(x => x.IDP == worker.IDP).FirstOrDefault();
+                        //            db.Doctors.Remove(doc);
+                                    
+                        //        }
+                        //        else if (db.Nurses.Where(x => x.IDP == worker.IDP).Count() > 0)
+                        //        {
+                        //            var nurse = db.Nurses.Where(x => x.IDP == worker.IDP).FirstOrDefault();
+                        //            db.Nurses.Remove(nurse);
+                        //        }
+
+                        //    }
+                        //});
+
+                        db.Departments.Remove(dep);
+                    }
+
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return retVal;
         }
 
         public ICollection<ISystemModel> ReadAllModes()

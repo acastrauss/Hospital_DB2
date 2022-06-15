@@ -13,15 +13,7 @@ namespace Hospital_DB2.UIComponents.Tables
 
         public DoctorTable() : base()
         {
-            this.dbCrud = new MSSQLDB.CRUD.CRUDDoctor();
-            Doctors = dbCrud.ReadAllModes().Select(x => (Models.AppModels.Doctor)x).ToList();
-
-            AddHeader();
-
-            foreach (var d in Doctors)
-            {
-                AddDoctor(d);
-            }
+            Restart();
         }
 
         protected override void AddHeader()
@@ -247,7 +239,40 @@ namespace Hospital_DB2.UIComponents.Tables
 
             sp.Children.Add(t5);
 
+            Button delete = new Button();
+            delete.Content = "Delete";
+            delete.Name = "btn_" + d.IDP.ToString();
+            delete.Click += Delete_Click;
+
+            sp.Children.Add(delete);
+
+
             this.Children.Add(sp);
+        }
+
+        private void Delete_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Button del = sender as Button;
+            int doctorId = int.Parse(del.Name.Split('_')[1]);
+
+            this.dbCrud = new MSSQLDB.CRUD.CRUDDoctor();
+            this.dbCrud.DeleteModel(doctorId);
+
+            Restart();
+        }
+
+        private void Restart()
+        {
+            this.Children.Clear();
+            this.dbCrud = new MSSQLDB.CRUD.CRUDDoctor();
+            Doctors = dbCrud.ReadAllModes().Select(x => (Models.AppModels.Doctor)x).ToList();
+
+            AddHeader();
+
+            foreach (var p in Doctors)
+            {
+                AddDoctor(p);
+            }
         }
     }
 }

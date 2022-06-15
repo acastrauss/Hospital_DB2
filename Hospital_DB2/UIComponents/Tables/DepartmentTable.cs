@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Hospital_DB2.UIComponents.Tables
@@ -12,15 +13,7 @@ namespace Hospital_DB2.UIComponents.Tables
         private List<Models.AppModels.Department> Departments = new List<Models.AppModels.Department>();
         public DepartmentTable() : base()
         {
-            this.dbCrud = new MSSQLDB.CRUD.CRUDDepartment();
-            Departments = dbCrud.ReadAllModes().Select(x => (Models.AppModels.Department)x).ToList();
-
-            AddHeader();
-
-            foreach (var d in Departments)
-            {
-                AddDepartment(d);
-            }
+            Restart();
         }
 
         protected override void AddHeader()
@@ -192,7 +185,39 @@ namespace Hospital_DB2.UIComponents.Tables
 
             sp.Children.Add(t5);
 
+            Button delete = new Button();
+            delete.Click += Delete_Click;
+            delete.Content = "Delete";
+            delete.Name = "btn_" + d.IDDep.ToString();
+            sp.Children.Add(delete);
+
+
             this.Children.Add(sp);
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            Button del = sender as Button;
+            int depId = int.Parse(del.Name.Split('_')[1]);
+
+            //this.dbCrud = new MSSQLDB.CRUD.CRUDDepartment();
+            //this.dbCrud.DeleteModel(depId);
+
+            Restart();
+        }
+
+        private void Restart()
+        {
+            this.Children.Clear();
+            this.dbCrud = new MSSQLDB.CRUD.CRUDDepartment();
+            Departments = dbCrud.ReadAllModes().Select(x => (Models.AppModels.Department)x).ToList();
+
+            AddHeader();
+
+            foreach (var p in Departments)
+            {
+                AddDepartment(p);
+            }
         }
     }
 }

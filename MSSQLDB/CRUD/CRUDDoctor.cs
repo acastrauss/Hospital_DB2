@@ -42,7 +42,26 @@ namespace MSSQLDB.CRUD
 
         public int DeleteModel(int id)
         {
-            throw new NotImplementedException();
+            int retVal = -1;
+
+            try
+            {
+                using (var db = new HospitalDBEntities())
+                {
+                    var p = db.Doctors.Where(x => x.IDP == id).FirstOrDefault();
+                    if (p != null)
+                    {
+                        db.Doctors.Remove(p);
+                    }
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return retVal;
         }
 
         public ICollection<ISystemModel> ReadAllModes()
