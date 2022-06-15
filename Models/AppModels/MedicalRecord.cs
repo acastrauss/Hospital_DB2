@@ -10,7 +10,7 @@ namespace Models.AppModels
     {
         public int IDRecord { get; set; }
         public int IDP { get; set; }
-        public ICollection<int> DoctorIDs { get; set; }
+        public ICollection<int> DoctorIDs { get; set; } = new List<int>();
         public String Diagnosis { get; set; }
         public String Therapy { get; set; }
 

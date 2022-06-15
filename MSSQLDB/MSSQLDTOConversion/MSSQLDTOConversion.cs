@@ -22,11 +22,11 @@ namespace MSSQLDB.MSSQLDTOConversion
 
             Models.AppModels.Department d = new Models.AppModels.Department()
             {
-                DepartmentField = dbDep.DepartmentField,
+                DepartmentField = dbDep.DepartmentField.Trim(),
                 HealthCareWorkers = healthCareWorkersApp,
                 IDDep = dbDep.IDDep,
                 IDH = dbDep.IDH,
-                PhoneNumber = dbDep.PhoneNumber,
+                PhoneNumber = dbDep.PhoneNumber.Trim(),
                 Rooms = roomsApp
             };
 
@@ -41,13 +41,12 @@ namespace MSSQLDB.MSSQLDTOConversion
             dbDoc.MedicalRecords.ToList().ForEach(x => medicalRecordsApp.Add(ConvertMedicalRecord(x)));
 
             return new Models.AppModels.Doctor(
-                    dbDoc.HealthCareWorker.Person.Name,
+                    dbDoc.HealthCareWorker.Person.Name.Trim(),
                     dbDoc.HealthCareWorker.Person.BirthDate,
-                    dbDoc.HealthCareWorker.Person.PhoneNumber,
-                    dbDoc.HealthCareWorker.MedicalLicense,
-                    dbDoc.HealthCareWorker.DegreeOfEducation,
-                    dbDoc.DoctorLicense,
-                    dbDoc.Specialty,
+                    dbDoc.HealthCareWorker.Person.PhoneNumber.Trim(),                    dbDoc.HealthCareWorker.MedicalLicense.Trim(),
+                    dbDoc.HealthCareWorker.DegreeOfEducation.Trim(),
+                    dbDoc.DoctorLicense.Trim(),
+                    dbDoc.Specialty.Trim(),
                     dbDoc.HealthCareWorker.IDH,
                     dbDoc.HealthCareWorker.IDDep,
                     dbDoc.HealthCareWorker.Person.IDP,
@@ -60,11 +59,11 @@ namespace MSSQLDB.MSSQLDTOConversion
             MSSQLDB.HealthCareWorker hcwDb = dbModel as MSSQLDB.HealthCareWorker;
 
             return new Models.AppModels.HealthCareWorker(
-                    hcwDb.Person.Name,
+                    hcwDb.Person.Name.Trim(),
                     hcwDb.Person.BirthDate,
-                    hcwDb.Person.PhoneNumber,
-                    hcwDb.MedicalLicense,
-                    hcwDb.DegreeOfEducation,
+                    hcwDb.Person.PhoneNumber.Trim(),
+                    hcwDb.MedicalLicense.Trim(),
+                    hcwDb.DegreeOfEducation.Trim(),
                     hcwDb.IDH,
                     hcwDb.IDDep,
                     hcwDb.IDP
@@ -80,10 +79,10 @@ namespace MSSQLDB.MSSQLDTOConversion
 
             return new Models.AppModels.Hospital()
             {
-                Address = hospitalDb.Address,
+                Address = hospitalDb.Address.Trim(),
                 DateBuilt = hospitalDb.DateBuilt,
                 IDH = hospitalDb.IDH,
-                Name = hospitalDb.Name,
+                Name = hospitalDb.Name.Trim(),
                 Departments = departmentsApp
             };
         }
@@ -97,8 +96,8 @@ namespace MSSQLDB.MSSQLDTOConversion
 
             return new Models.AppModels.MedicalRecord()
             {
-                Diagnosis = medicalRecordDb.Diagnosis,
-                Therapy = medicalRecordDb.Therapy,
+                Diagnosis = medicalRecordDb.Diagnosis.Trim(),
+                Therapy = medicalRecordDb.Therapy.Trim(),
                 IDP = medicalRecordDb.IDP,
                 IDRecord = medicalRecordDb.IDRecord,
                 DoctorIDs = doctorIdsApp
@@ -110,11 +109,11 @@ namespace MSSQLDB.MSSQLDTOConversion
             MSSQLDB.Nurse dbNurse = dbModel as MSSQLDB.Nurse;
 
             return new Models.AppModels.Nurse(
-                    dbNurse.HealthCareWorker.Person.Name,
+                    dbNurse.HealthCareWorker.Person.Name.Trim(),
                     dbNurse.HealthCareWorker.Person.BirthDate,
-                    dbNurse.HealthCareWorker.Person.PhoneNumber,
-                    dbNurse.HealthCareWorker.MedicalLicense,
-                    dbNurse.HealthCareWorker.DegreeOfEducation,
+                    dbNurse.HealthCareWorker.Person.PhoneNumber.Trim(),
+                    dbNurse.HealthCareWorker.MedicalLicense.Trim(),
+                    dbNurse.HealthCareWorker.DegreeOfEducation.Trim(),
                     dbNurse.SeniorityLevel,
                     dbNurse.HealthCareWorker.IDH,
                     dbNurse.HealthCareWorker.IDDep,
@@ -130,10 +129,10 @@ namespace MSSQLDB.MSSQLDTOConversion
             patientDb.MedicalRecords.ToList().ForEach(x => medicalRecordsApp.Add(ConvertMedicalRecord(x)));
 
             return new Models.AppModels.Patient(
-                    patientDb.Person.Name,
+                    patientDb.Person.Name.Trim(),
                     patientDb.Person.BirthDate,
-                    patientDb.Person.PhoneNumber,
-                    patientDb.InsurancePolicy,
+                    patientDb.Person.PhoneNumber.Trim(),
+                    patientDb.InsurancePolicy.Trim(),
                     patientDb.IDRoom,
                     patientDb.IDP,
                     medicalRecordsApp
@@ -189,7 +188,7 @@ namespace MSSQLDB.MSSQLDTOConversion
                 IDPPatient = uspRes.IDPPatient,
                 IDRoom = uspRes.IDRoom,
                 IDTCB = uspRes.IDTCB,
-                InsurancePolicy = uspRes.InsurancePolicy
+                InsurancePolicy = uspRes.InsurancePolicy.Trim()
             };
         }
 
@@ -198,8 +197,8 @@ namespace MSSQLDB.MSSQLDTOConversion
             MSSQLDB.uspPatientDoctors_Result uspRes = dbModel as MSSQLDB.uspPatientDoctors_Result;
             return new uspPatientDoctorsResult()
             {
-                DoctorLicense = uspRes.DoctorLicense,
-                Specialty = uspRes.Specialty,
+                DoctorLicense = uspRes.DoctorLicense.Trim(),
+                Specialty = uspRes.Specialty.Trim(),
                 IDP = uspRes.IDP,
                 IDPDoctor = uspRes.IDPDoctor,
                 IDPPatient = uspRes.IDPPatient,

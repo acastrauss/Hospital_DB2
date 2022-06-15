@@ -66,6 +66,26 @@ namespace MSSQLDB.CRUD
 
         public ISystemModel ReadModel(int id)
         {
+            Models.AppModels.Room retVal = new Models.AppModels.Room();
+
+            try
+            {
+                using (var db = new HospitalDBEntities1())
+                {
+                    var hdb = db.Rooms.Where(x => x.IDRoom == id).FirstOrDefault();
+                    retVal = _Converter.ConvertRoom(hdb);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return retVal;
+        }
+
+        public ICollection<ISystemModel> ReadMultipleModels(ICollection<int> ids)
+        {
             throw new NotImplementedException();
         }
 

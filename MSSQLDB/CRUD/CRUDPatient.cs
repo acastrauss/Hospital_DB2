@@ -27,6 +27,26 @@ namespace MSSQLDB.CRUD
                         patient.InsurancePolicy,
                         patient.RoomId
                     );
+
+                    db.SaveChanges();
+
+                    int patientId = db.Patients.Max(x => x.IDP);
+
+                    patient.DoctorIds.ToList().ForEach((did) =>
+                    {
+                        db.TakenCareBies.Add(new TakenCareBy()
+                        {
+                            IDPDoctor = did,
+                            IDPPatient = patientId
+                        });
+                    });
+
+                    if(db.Rooms.Where(x => x.IDRoom == patient.RoomId).Count() > 0)
+                    {
+                        db.Rooms.Where(x => x.IDRoom == patient.RoomId).First().Capacity -= 1;
+                    }
+
+                    db.SaveChanges();
                 }
             }
             catch (Exception)
@@ -43,10 +63,29 @@ namespace MSSQLDB.CRUD
 
         public ICollection<ISystemModel> ReadAllModes()
         {
-            throw new NotImplementedException();
+            List<ISystemModel> retVal = new List<ISystemModel>();
+
+            try
+            {
+                using (var db = new HospitalDBEntities1())
+                {
+                    db.Patients.ToList().ForEach(x => retVal.Add(_Converter.ConvertPatient(x)));
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return retVal;
         }
 
         public ISystemModel ReadModel(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<ISystemModel> ReadMultipleModels(ICollection<int> ids)
         {
             throw new NotImplementedException();
         }

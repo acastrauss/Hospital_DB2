@@ -28,5 +28,10 @@ namespace Hospital_DB2.UIComponents.Forms
 
             this.Children.Add(sp);
         }
+
+        public virtual Models.AppModels.ISystemModel GetModel()
+        {
+            return Model;
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace MSSQLDB.CRUD
 {
     public class CRUDDoctor : Models.ICRUD.ICRUD
     {
-        public IConvertModels _Converter { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IConvertModels _Converter { get; set; } = new MSSQLDB.MSSQLDTOConversion.MSSQLDTOConversion();
 
         public int CreateModel(ISystemModel model)
         {
@@ -47,10 +47,29 @@ namespace MSSQLDB.CRUD
 
         public ICollection<ISystemModel> ReadAllModes()
         {
-            throw new NotImplementedException();
+            List<ISystemModel> retVal = new List<ISystemModel>();
+
+            try
+            {
+                using (var db = new HospitalDBEntities1())
+                {
+                    db.Doctors.ToList().ForEach(x => retVal.Add(_Converter.ConvertDoctor(x)));
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return retVal;
         }
 
         public ISystemModel ReadModel(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<ISystemModel> ReadMultipleModels(ICollection<int> ids)
         {
             throw new NotImplementedException();
         }

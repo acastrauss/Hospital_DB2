@@ -66,10 +66,66 @@ namespace MSSQLDB.CRUD
 
         public ISystemModel ReadModel(int id)
         {
-            throw new NotImplementedException();
+            Models.AppModels.Department retVal = new Models.AppModels.Department();
+
+            try
+            {
+                using (var db = new HospitalDBEntities1())
+                {
+                    var hdb = db.Departments.Where(x => x.IDDep == id).FirstOrDefault();
+                    retVal = _Converter.ConvertDepartment(hdb);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return retVal;
         }
 
         public int UpdateModel(ISystemModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetNumberOfNurses(int depId)
+        {
+            int retVal = 0;
+            try
+            {
+                using (var db = new HospitalDBEntities1())
+                {
+                    retVal = db.Nurses.ToList().Count(x => x.HealthCareWorker.IDDep == depId);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return retVal;
+        }
+        
+        public int GetNumberOfDoctors(int depId)
+        {
+            int retVal = 0;
+            try
+            {
+                using (var db = new HospitalDBEntities1())
+                {
+                    retVal = db.Doctors.ToList().Count(x => x.HealthCareWorker.IDDep == depId);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return retVal;
+        }
+
+        public ICollection<ISystemModel> ReadMultipleModels(ICollection<int> ids)
         {
             throw new NotImplementedException();
         }

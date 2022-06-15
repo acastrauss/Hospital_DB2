@@ -46,10 +46,29 @@ namespace MSSQLDB.CRUD
 
         public ICollection<ISystemModel> ReadAllModes()
         {
-            throw new NotImplementedException();
+            List<ISystemModel> retVal = new List<ISystemModel>();
+
+            try
+            {
+                using (var db = new HospitalDBEntities1())
+                {
+                    db.Nurses.ToList().ForEach(x => retVal.Add(_Converter.ConvertNurse(x)));
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return retVal;
         }
 
         public ISystemModel ReadModel(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<ISystemModel> ReadMultipleModels(ICollection<int> ids)
         {
             throw new NotImplementedException();
         }

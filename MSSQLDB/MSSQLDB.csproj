@@ -53,6 +53,7 @@
     <Compile Include="CRUD\CRUDDepartment.cs" />
     <Compile Include="CRUD\CRUDDoctor.cs" />
     <Compile Include="CRUD\CRUDHospital.cs" />
+    <Compile Include="CRUD\CRUDMedicalRecord.cs" />
     <Compile Include="CRUD\CRUDNurse.cs" />
     <Compile Include="CRUD\CRUDPatient.cs" />
     <Compile Include="CRUD\CRUDRoom.cs" />

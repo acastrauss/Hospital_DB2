@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:Hospital_DB2"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button Content="Add Entity" HorizontalAlignment="Left" Margin="10,389,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-
-        <StackPanel Orientation="Vertical" x:Name="formDiv">
+    <Grid x:Name="mainGrid">
+        <Button Content="Create Entities" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Click="Create_Button_Click"/>
+        <Button Content="Read Entities" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Margin="95,0,0,0" Click="Read_Button_Click"/>
+        <Button Content="Modify Entities" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Margin="190,0,0,0" Click="Modify_Button_Click"/>
+        <StackPanel x:Name="tabDiv" Margin="0,25,0,0">
+            
         </StackPanel>
-        
-        <ComboBox x:Name="EntitiesSelect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="480,134,0,0" SelectionChanged="ComboBox_SelectionChanged"/>
     </Grid>
 </Window>

@@ -11,6 +11,7 @@ namespace Models.ICRUD
         int CreateModel(AppModels.ISystemModel model);
         AppModels.ISystemModel ReadModel(int id);
         ICollection<AppModels.ISystemModel> ReadAllModes();
+        ICollection<AppModels.ISystemModel> ReadMultipleModels(ICollection<int> ids);
         int UpdateModel(AppModels.ISystemModel model);
         int DeleteModel(int id);
 
